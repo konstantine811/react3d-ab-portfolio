@@ -34,11 +34,11 @@ const Header: FC<HeaderProps> = () => {
   return (
     <>
       <Navbar onMenuOpenChange={setIsMenuOpen}>
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="sm:hidden order-2"
+        />
         <NavbarContent>
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="sm:hidden order-1"
-          />
           <NavbarBrand className="gap-2">
             <Box />
             <p className="font-bold text-inherit uppercase">
@@ -70,7 +70,7 @@ const Header: FC<HeaderProps> = () => {
             }
           })}
         </NavbarContent>
-        <NavbarContent justify="end">
+        <NavbarContent justify="end" className="order-1">
           <NavbarItem>
             <Switch
               size="md"
