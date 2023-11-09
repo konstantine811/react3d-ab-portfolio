@@ -36,7 +36,7 @@ const Header: FC<HeaderProps> = () => {
 
   return (
     <>
-      <Navbar onMenuOpenChange={setIsMenuOpen}>
+      <Navbar maxWidth="2xl" onMenuOpenChange={setIsMenuOpen}>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden order-2"
