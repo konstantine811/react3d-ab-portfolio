@@ -8,7 +8,8 @@
       "@models/*": ["./models/*"],
       "@pages/*": ["./pages/*"],
       "@store/*": ["./store/*"],
-      "@providers/*": ["./providers/*"]
+      "@providers/*": ["./providers/*"],
+      "@translations/*": ["./translations/*"]
     }
   }
 }

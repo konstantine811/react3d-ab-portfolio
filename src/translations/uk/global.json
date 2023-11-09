@@ -1,0 +1,14 @@
+{
+  "header": {
+    "lang": {
+      "title": "Мова"
+    },
+    "nav-links": {
+      "home": "Головна",
+      "three-scenes": {
+        "title": "3d Сцени",
+        "first-scene": "Перша сцена"
+      }
+    }
+  }
+}

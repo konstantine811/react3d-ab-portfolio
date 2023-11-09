@@ -9,6 +9,7 @@ import {
 } from "@nextui-org/react";
 import { Box } from "lucide-react";
 import { FC, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export interface NavBarNestedItemProps {
   pathname: string;
@@ -20,6 +21,7 @@ const NavBarNestedItem: FC<NavBarNestedItemProps> = ({
   routerConfig,
 }) => {
   const [isShowing, setIsShowing] = useState(false);
+  const [t] = useTranslation("global");
   return (
     <>
       {routerConfig.children?.length ? (
@@ -43,7 +45,7 @@ const NavBarNestedItem: FC<NavBarNestedItemProps> = ({
                     : "text-foreground"
                 }
               >
-                {routerConfig.title}
+                {t(routerConfig.title)}
               </span>
             </PopoverTrigger>
             <PopoverContent className="p-1">
@@ -58,7 +60,7 @@ const NavBarNestedItem: FC<NavBarNestedItemProps> = ({
                   >
                     {" "}
                     <Box key={indexCh} />
-                    {iCh.title}
+                    {t(iCh.title)}
                   </Link>
                 );
               })}

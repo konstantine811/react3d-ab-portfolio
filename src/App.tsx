@@ -12,16 +12,16 @@ import { Providers } from "@providers/nextui/providers";
 
 export const ROUTE_PATH_CONFIG: IRouterConfiguration[] = [
   {
-    title: "Home",
+    title: "header.nav-links.home",
     path: NavNamesPaths.home,
     element: <HomePage />,
   },
   {
-    title: "Three Scenes",
+    title: "header.nav-links.three-scenes.title",
     element: <FirstThreeScenes />,
     children: [
       {
-        title: "First Scene",
+        title: "header.nav-links.three-scenes.first-scene",
         path: NavNamesPaths.threeFirstScene,
         element: <FirstThreeScenes />,
       },

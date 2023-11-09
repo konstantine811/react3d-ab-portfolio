@@ -1,0 +1,14 @@
+{
+  "header": {
+    "lang": {
+      "title": "Language"
+    },
+    "nav-links": {
+      "home": "Home",
+      "three-scenes": {
+        "title": "Three scenes",
+        "first-scene": "First Scene"
+      }
+    }
+  }
+}

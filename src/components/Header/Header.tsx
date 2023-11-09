@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FC } from "react";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
 // store
 import { ThemeType } from "@models/theme.model";
 // lib components
@@ -22,11 +23,13 @@ import { Box, Moon, Sun } from "lucide-react";
 import NavBarNestedItem from "@components/Header/NavBarNestedItem";
 import NavMenuAccordionItem from "@components/Header/NavMenuAccordionItem";
 import { ROUTE_PATH_CONFIG } from "../../App";
+import SelectLangButton from "@components/Header/SelectLangButton";
 // configs
 
 export interface HeaderProps {}
 
 const Header: FC<HeaderProps> = () => {
+  const [t] = useTranslation("global");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { pathname } = useLocation();
   const { setTheme } = useTheme();
@@ -63,7 +66,7 @@ const Header: FC<HeaderProps> = () => {
                     color={pathname === i.path ? "primary" : "foreground"}
                     href={i.path}
                   >
-                    {i.title}
+                    {t(i.title)}
                   </Link>
                 </NavbarItem>
               );
@@ -82,6 +85,9 @@ const Header: FC<HeaderProps> = () => {
                 setTheme(themeType);
               }}
             ></Switch>
+          </NavbarItem>
+          <NavbarItem>
+            <SelectLangButton />
           </NavbarItem>
         </NavbarContent>
         <NavbarMenu>
@@ -102,7 +108,7 @@ const Header: FC<HeaderProps> = () => {
                     href={i.path}
                     className="w-full p-2"
                   >
-                    {i.title}
+                    {t(i.title)}
                   </Link>
                   <Divider orientation="horizontal" />
                 </NavbarMenuItem>

@@ -1,0 +1,48 @@
+import { LangType } from "@models/lang.model";
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/react";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
+const SelectLangButton = () => {
+  const [selectedKeys, setSelectedKeys] = React.useState(
+    new Set([LangType.en])
+  );
+  const [t, i18n] = useTranslation("global");
+  const handleChangeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
+  return (
+    <Dropdown>
+      <DropdownTrigger>
+        <Button variant="light" className="capitalize">
+          {t("header.lang.title")} {selectedKeys}
+        </Button>
+      </DropdownTrigger>
+      <DropdownMenu
+        aria-label="Single selection example"
+        variant="flat"
+        disallowEmptySelection
+        selectionMode="single"
+        selectedKeys={selectedKeys}
+        disabledKeys={selectedKeys}
+        onSelectionChange={(keys) => {
+          const keysSet = keys as Set<LangType>;
+          setSelectedKeys(keysSet);
+          handleChangeLanguage(keysSet.values().next().value);
+        }}
+      >
+        {Object.values(LangType).map((i) => {
+          return <DropdownItem key={i}>{i}</DropdownItem>;
+        })}
+      </DropdownMenu>
+    </Dropdown>
+  );
+};
+
+export default SelectLangButton;
