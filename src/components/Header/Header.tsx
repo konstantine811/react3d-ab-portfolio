@@ -19,8 +19,8 @@ import {
 } from "@nextui-org/react";
 import { Box, Moon, Sun } from "lucide-react";
 // components
-import NavbarNestedItem from "./NavbarNestedItem";
-import NavMenuAccordionItem from "./NavMenuAccordionItem";
+import NavbarNestedItem from "@components/Header/NavbarNestedItem";
+import NavMenuAccordionItem from "@components/Header/NavMenuAccordionItem";
 import { ROUTE_PATH_CONFIG } from "../../App";
 // configs
 
