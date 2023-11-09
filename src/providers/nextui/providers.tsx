@@ -6,7 +6,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   return (
     <NextUIProvider navigate={navigate}>
-      <NextThemesProvider attribute="class" defaultTheme="light">
+      <NextThemesProvider attribute="class" defaultTheme="dark">
         {children}
       </NextThemesProvider>
     </NextUIProvider>
