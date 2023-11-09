@@ -6,13 +6,22 @@ const HomePage = () => {
   return (
     <>
       <div className="container">
-        <TextSplitAnimation as="h2" className="m-auto text-9xl foreground">
+        <TextSplitAnimation
+          as="h2"
+          className="m-auto md:text-9xl sm:text-8xl text-6xl foreground"
+        >
           Constantine
         </TextSplitAnimation>
-        <TextSplitAnimation as="h2" className="m-auto text-9xl foreground">
+        <TextSplitAnimation
+          as="h2"
+          className="m-auto md:text-9xl sm:text-8xl text-6xl foreground"
+        >
           Portfolio
         </TextSplitAnimation>
-        <TextSplitAnimation as="h2" className="m-auto text-9xl foreground">
+        <TextSplitAnimation
+          as="h2"
+          className="m-auto md:text-9xl sm:text-8xl text-6xl foreground"
+        >
           Abramov
         </TextSplitAnimation>
       </div>
