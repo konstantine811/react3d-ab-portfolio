@@ -10,12 +10,12 @@ import {
 import { Box } from "lucide-react";
 import { FC, useState } from "react";
 
-export interface NavBarNestedItemProps {
+export interface NavbarNestedItemProps {
   pathname: string;
   routerConfig: IRouterConfiguration;
 }
 
-const NavbarNestedItem: FC<NavBarNestedItemProps> = ({
+const NavbarNestedItem: FC<NavbarNestedItemProps> = ({
   pathname,
   routerConfig,
 }) => {
