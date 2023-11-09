@@ -1,4 +1,3 @@
-import { LangType } from "@models/lang.model";
 import {
   Button,
   Dropdown,
@@ -8,6 +7,8 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import { useTranslation } from "react-i18next";
+// models
+import { LangType } from "@models/lang.model";
 
 const SelectLangButton = () => {
   const [selectedKeys, setSelectedKeys] = React.useState(
@@ -25,8 +26,8 @@ const SelectLangButton = () => {
         </Button>
       </DropdownTrigger>
       <DropdownMenu
-        aria-label="Single selection example"
-        variant="flat"
+        aria-label="Select language"
+        variant="solid"
         disallowEmptySelection
         selectionMode="single"
         selectedKeys={selectedKeys}
