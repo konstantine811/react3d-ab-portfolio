@@ -19,18 +19,18 @@ const TextSplitAnimation: FC<ITextSplitAnimationProps> = ({
   uniqKey = "_",
 }) => {
   const classAnim = `txt-anim_${as}_${uniqKey}`;
+  const wordSplit = children.split(" ");
   function fadeText() {
     gsap.fromTo(
       `.${classAnim}`,
       {
         opacity: 0,
-        y: 10,
+        y: 40,
       },
       {
         opacity: 1,
         y: 0,
-        x: 0,
-        stagger: isWordSplit ? 0.2 : 0.031,
+        stagger: isWordSplit ? 0.2 : wordSplit.length / 4444,
         duration: 2,
         overwrite: true,
         ease: "ease",
@@ -44,7 +44,7 @@ const TextSplitAnimation: FC<ITextSplitAnimationProps> = ({
   return (
     <>
       <TextWrapper as={as} className={className}>
-        {children.split(" ").map((word, wordIndex) => {
+        {wordSplit.map((word, wordIndex) => {
           return (
             <span
               aria-hidden="false"

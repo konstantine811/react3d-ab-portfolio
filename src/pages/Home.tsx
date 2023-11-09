@@ -1,26 +1,26 @@
 // components
 import TextSplitAnimation from "@components/TextAnimation/TextSplitAnimation";
+import { useTranslation } from "react-i18next";
 
 const HomePage = () => {
+  const [t] = useTranslation("global");
   return (
     <>
-      <div className="container grow flex flex-col pt-32 items-center">
+      <div className="container grow flex flex-col pt-32 items-center ">
         <TextSplitAnimation
           as="h2"
-          className="md:text-9xl sm:text-8xl text-6xl foreground"
+          className="text-[13vw] foreground uppercase"
         >
-          Constantine
+          {t("home.intro.name")}
         </TextSplitAnimation>
-        <TextSplitAnimation className="md:text-9xl sm:text-8xl text-6xl foreground">
-          Abramov
+        <TextSplitAnimation className="text-[13vw] foreground uppercase">
+          {t("home.intro.second-name")}
         </TextSplitAnimation>
         <TextSplitAnimation
           as="p"
-          className="foreground max-w-lg text-center pt-10"
+          className="text-sm foreground max-w-lg text-center pt-10"
         >
-          Welcome to my portfolio! I'm a passionate and skilled front-end
-          programmer with a diverse set of tools and technologies at my
-          disposalfe.
+          {t("home.intro.about-text")}
         </TextSplitAnimation>
       </div>
     </>

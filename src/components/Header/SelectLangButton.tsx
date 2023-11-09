@@ -21,13 +21,13 @@ const SelectLangButton = () => {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button variant="light" className="capitalize">
+        <Button variant="flat" className="capitalize">
           {t("header.lang.title")} {selectedKeys}
         </Button>
       </DropdownTrigger>
       <DropdownMenu
         aria-label="Select language"
-        variant="solid"
+        variant="flat"
         disallowEmptySelection
         selectionMode="single"
         selectedKeys={selectedKeys}
