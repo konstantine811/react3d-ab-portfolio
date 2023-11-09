@@ -19,7 +19,7 @@ import {
 } from "@nextui-org/react";
 import { Box, Moon, Sun } from "lucide-react";
 // components
-import NavbarNestedItem from "@components/Header/NavbarNestedItem";
+import NavBarNestedItem from "@components/Header/NavBarNestedItem";
 import NavMenuAccordionItem from "@components/Header/NavMenuAccordionItem";
 import { ROUTE_PATH_CONFIG } from "../../App";
 // configs
@@ -50,7 +50,7 @@ const Header: FC<HeaderProps> = () => {
           {ROUTE_PATH_CONFIG.map((i, index) => {
             if (i.children?.length) {
               return (
-                <NavbarNestedItem
+                <NavBarNestedItem
                   key={index}
                   pathname={pathname}
                   routerConfig={i}
