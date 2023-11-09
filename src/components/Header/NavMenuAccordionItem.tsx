@@ -2,6 +2,7 @@ import { IRouterConfiguration } from "@models/navigation.model";
 import { Accordion, AccordionItem, Divider, Link } from "@nextui-org/react";
 import { Box } from "lucide-react";
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 export interface NavMenuAccordionItemProps {
   pathname: string;
@@ -12,13 +13,14 @@ const NavMenuAccordionItem: FC<NavMenuAccordionItemProps> = ({
   pathname,
   routerConfig,
 }) => {
+  const [t] = useTranslation("global");
   return (
     <>
       {routerConfig.children?.length ? (
         <>
           <Accordion isCompact>
             <AccordionItem
-              aria-label={routerConfig.title}
+              aria-label={t(routerConfig.title)}
               title={
                 <h3
                   className={
@@ -29,7 +31,7 @@ const NavMenuAccordionItem: FC<NavMenuAccordionItemProps> = ({
                       : "text-foreground"
                   }
                 >
-                  {routerConfig.title}
+                  {t(routerConfig.title)}
                 </h3>
               }
               startContent={<Box className="text-primary" />}
@@ -44,7 +46,7 @@ const NavMenuAccordionItem: FC<NavMenuAccordionItemProps> = ({
                     key={index}
                   >
                     {" "}
-                    {i.title}
+                    {t(i.title)}
                   </Link>
                 );
               })}

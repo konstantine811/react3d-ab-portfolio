@@ -1,4 +1,3 @@
-import { Button } from "@nextui-org/react";
 // components
 import TextSplitAnimation from "@components/TextAnimation/TextSplitAnimation";
 
