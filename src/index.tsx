@@ -5,6 +5,8 @@ import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "@store/slices/index.store";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,9 +14,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <div className="w-screen h-screen dark text-foreground bg-background">
-        <App />
-      </div>
+      <Provider store={store}>
+        <div className="w-screen h-screen">
+          <App />
+        </div>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

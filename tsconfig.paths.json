@@ -6,7 +6,9 @@
       "@lib/*": ["./lib/*"],
       "@configs/*": ["./configs/*"],
       "@models/*": ["./models/*"],
-      "@pages/*": ["./pages/*"]
+      "@pages/*": ["./pages/*"],
+      "@store/*": ["./store/*"],
+      "@providers/*": ["./providers/*"]
     }
   }
 }

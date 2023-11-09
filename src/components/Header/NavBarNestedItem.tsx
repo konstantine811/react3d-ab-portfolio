@@ -15,7 +15,7 @@ export interface NavBarNestedItemProps {
   routerConfig: IRouterConfiguration;
 }
 
-const NavBarNestedItem: FC<NavBarNestedItemProps> = ({
+const NavbarNestedItem: FC<NavBarNestedItemProps> = ({
   pathname,
   routerConfig,
 }) => {
@@ -28,15 +28,11 @@ const NavBarNestedItem: FC<NavBarNestedItemProps> = ({
           onMouseEnter={() => {
             setIsShowing((m) => true);
           }}
+          onMouseLeave={() => {
+            setIsShowing(false);
+          }}
         >
-          <Popover
-            onMouseLeave={() => {
-              setIsShowing(false);
-            }}
-            isOpen={isShowing}
-            showArrow
-            placement="bottom"
-          >
+          <Popover isOpen={isShowing} showArrow placement="bottom">
             <PopoverTrigger>
               <span
                 className={
@@ -74,4 +70,4 @@ const NavBarNestedItem: FC<NavBarNestedItemProps> = ({
   );
 };
 
-export default NavBarNestedItem;
+export default NavbarNestedItem;

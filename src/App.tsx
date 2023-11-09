@@ -1,6 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
-import { NextUIProvider } from "@nextui-org/react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { Route, Routes } from "react-router-dom";
 // components
 import Header from "./components/Header/Header";
 // route pages components
@@ -9,6 +7,8 @@ import HomePage from "@pages/Home";
 // models
 import { NavNamesPaths } from "@configs/navigation";
 import { IRouterConfiguration } from "@models/navigation.model";
+// providers
+import { Providers } from "@providers/nextui/providers";
 
 export const ROUTE_PATH_CONFIG: IRouterConfiguration[] = [
   {
@@ -30,37 +30,30 @@ export const ROUTE_PATH_CONFIG: IRouterConfiguration[] = [
 ];
 
 function App() {
-  const navigate = useNavigate();
   return (
     <>
-      <NextUIProvider navigate={navigate}>
-        <NextThemesProvider attribute="class" defaultTheme="dark">
-          <Header></Header>
-          <Routes>
-            {ROUTE_PATH_CONFIG.map((i) => {
-              if (i.children && i.children.length) {
-                return i.children.map((iCh) => {
-                  return (
-                    <Route
-                      key={iCh.title}
-                      path={iCh.path}
-                      element={iCh.element}
-                    ></Route>
-                  );
-                });
-              } else {
+      <Providers>
+        <Header></Header>
+        <Routes>
+          {ROUTE_PATH_CONFIG.map((i) => {
+            if (i.children && i.children.length) {
+              return i.children.map((iCh) => {
                 return (
                   <Route
-                    key={i.title}
-                    path={i.path}
-                    element={i.element}
+                    key={iCh.title}
+                    path={iCh.path}
+                    element={iCh.element}
                   ></Route>
                 );
-              }
-            })}
-          </Routes>
-        </NextThemesProvider>
-      </NextUIProvider>
+              });
+            } else {
+              return (
+                <Route key={i.title} path={i.path} element={i.element}></Route>
+              );
+            }
+          })}
+        </Routes>
+      </Providers>
     </>
   );
 }
