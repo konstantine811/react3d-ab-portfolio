@@ -5,7 +5,7 @@ import TextWrapper from "@components/TextWrapper/TextWrapper";
 
 export interface ITextSplitAnimationProps {
   as?: ElementType;
-  className: string;
+  className?: string;
   children: string;
   isWordSplit?: boolean;
   uniqKey?: string;

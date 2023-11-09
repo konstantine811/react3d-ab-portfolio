@@ -4,7 +4,7 @@ import { cn } from "@lib/merge-classes-utils";
 
 export interface ITextWrapperProps {
   as?: ElementType;
-  className: string;
+  className?: string;
   children: ReactNode;
 }
 
