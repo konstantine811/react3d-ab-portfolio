@@ -81,7 +81,7 @@ const Header: FC<HeaderProps> = () => {
               startContent={<Sun />}
               endContent={<Moon />}
               onValueChange={(status) => {
-                const themeType = status ? ThemeType.light : ThemeType.dark;
+                const themeType = status ? ThemeType.dark : ThemeType.light;
                 setTheme(themeType);
               }}
             ></Switch>
