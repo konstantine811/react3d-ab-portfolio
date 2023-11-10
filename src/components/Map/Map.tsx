@@ -1,5 +1,6 @@
 import mapboxgl from "mapbox-gl";
 import React, { useEffect, useRef, useState } from "react";
+import { isMobile } from "react-device-detect";
 
 interface IMapProps {
   className?: string;
@@ -17,7 +18,7 @@ export default function Map({ className }: IMapProps) {
     if (mapContainer && mapContainer.current) {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
-        style: "mapbox://styles/mapbox/streets-v12",
+        style: "mapbox://styles/mapbox/satellite-v9",
         center: [lng, lat],
         zoom: zoom,
       });

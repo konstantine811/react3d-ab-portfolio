@@ -43,7 +43,7 @@ const HomePage = () => {
       </div>
 
       <div className="container pt-10">
-        <div className="columns-2">
+        <div className="lg:columns-2 columns-1">
           <motion.div
             initial="offscreen"
             whileInView="onscreen"
