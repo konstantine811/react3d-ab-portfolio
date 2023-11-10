@@ -38,32 +38,26 @@ function App() {
   return (
     <>
       <Providers>
-        <div className="flex flex-col min-h-screen">
-          <Header></Header>
-          <Routes>
-            {ROUTE_PATH_CONFIG.map((i) => {
-              if (i.children && i.children.length) {
-                return i.children.map((iCh) => {
-                  return (
-                    <Route
-                      key={iCh.title}
-                      path={iCh.path}
-                      element={iCh.element}
-                    ></Route>
-                  );
-                });
-              } else {
+        <Header></Header>
+        <Routes>
+          {ROUTE_PATH_CONFIG.map((i) => {
+            if (i.children && i.children.length) {
+              return i.children.map((iCh) => {
                 return (
                   <Route
-                    key={i.title}
-                    path={i.path}
-                    element={i.element}
+                    key={iCh.title}
+                    path={iCh.path}
+                    element={iCh.element}
                   ></Route>
                 );
-              }
-            })}
-          </Routes>
-        </div>
+              });
+            } else {
+              return (
+                <Route key={i.title} path={i.path} element={i.element}></Route>
+              );
+            }
+          })}
+        </Routes>
       </Providers>
     </>
   );
