@@ -32,7 +32,7 @@ const Header: FC<HeaderProps> = () => {
   const [t] = useTranslation("global");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { pathname } = useLocation();
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
   return (
     <>
@@ -78,6 +78,7 @@ const Header: FC<HeaderProps> = () => {
             <Switch
               size="md"
               color="primary"
+              isSelected={ThemeType.dark === theme}
               startContent={<Sun />}
               endContent={<Moon />}
               onValueChange={(status) => {

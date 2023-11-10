@@ -22,7 +22,8 @@ const SelectLangButton = () => {
     <Dropdown>
       <DropdownTrigger>
         <Button variant="flat" className="capitalize">
-          {t("header.lang.title")} {selectedKeys}
+          <span className="text-xs text-primary">{t("header.lang.title")}</span>{" "}
+          {selectedKeys}
         </Button>
       </DropdownTrigger>
       <DropdownMenu
