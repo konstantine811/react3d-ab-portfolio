@@ -46,12 +46,14 @@ const HomePage = () => {
         <div className="columns-2">
           <motion.div
             initial="offscreen"
-            className="overflow-hidden"
             whileInView="onscreen"
             viewport={{ once: true, amount: 0.8 }}
           >
-            <motion.div className="" variants={cardVariants}>
-              <Map className="w-full md:h-[600px] h-96 m-auto rounded-3xl  border" />
+            <motion.div
+              className="overflow-hidden rounded-3xl"
+              variants={cardVariants}
+            >
+              <Map className="w-full md:h-[600px] h-96 m-auto   border" />
             </motion.div>
           </motion.div>
           <p className="text-md foreground pt-10">
