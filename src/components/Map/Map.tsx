@@ -18,7 +18,9 @@ export default function Map({ className }: IMapProps) {
     if (mapContainer && mapContainer.current) {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
-        style: "mapbox://styles/mapbox/satellite-v9",
+        style: isMobile
+          ? "mapbox://styles/mapbox/satellite-v9"
+          : "mapbox://styles/konstantine811/clbgrp235006a14o0pebuoyuo",
         center: [lng, lat],
         zoom: zoom,
       });
