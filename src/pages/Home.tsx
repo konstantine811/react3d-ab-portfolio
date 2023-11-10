@@ -43,20 +43,17 @@ const HomePage = () => {
       </div>
 
       <div className="container pt-10">
-        <div className="md:columns-2">
+        <div className="columns-2">
           <motion.div
             initial="offscreen"
             whileInView="onscreen"
             viewport={{ once: true, amount: 0.8 }}
           >
             <motion.div className="" variants={cardVariants}>
-              <Map className="w-full min-h-[calc(100vh_-_190px)]  m-auto rounded-3xl overflow-hidden border" />
+              <Map className="w-full md:h-[600px] h-96 m-auto rounded-3xl overflow-hidden border" />
             </motion.div>
           </motion.div>
-          <TextSplitAnimation
-            isWordSplit={true}
-            className="text-md foreground pt-10"
-          >
+          <p className="text-md foreground pt-10">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi saepe
             delectus, assumenda vel dolorem culpa maiores officia blanditiis.
             Cupiditate a maxime error dolore necessitatibus iste fuga impedit
@@ -92,7 +89,7 @@ const HomePage = () => {
             provident, praesentium ex magnam sed dolorem libero consequuntur, et
             corporis in cum, voluptas perspiciatis debitis quod aperiam? Magni
             perspiciatis eos rem placeat architecto?
-          </TextSplitAnimation>
+          </p>
         </div>
       </div>
       <div className="sticky bottom-3 pt-5">
