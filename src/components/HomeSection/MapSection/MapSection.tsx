@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { forwardRef, useRef } from "react";
 // components
 import Map from "@components/Map/Map";
 
@@ -7,7 +7,7 @@ interface IMapSection {
   id: string;
 }
 
-export default function MapSection({ id }: IMapSection) {
+const MapSection = forwardRef<HTMLDivElement, IMapSection>(({ id }, ref) => {
   const mapWrapRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: mapWrapRef,
@@ -17,7 +17,7 @@ export default function MapSection({ id }: IMapSection) {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
   return (
     <>
-      <div id={id} className="container pt-10">
+      <div ref={ref} id={id} className="container pt-10">
         <div className="grid grid-cols-6 gap-10">
           <motion.div
             style={{ scale, opacity }}
@@ -67,4 +67,6 @@ export default function MapSection({ id }: IMapSection) {
       </div>
     </>
   );
-}
+});
+
+export default MapSection;

@@ -2,7 +2,20 @@ import { Tab, Tabs } from "@nextui-org/react";
 import { BookUser, PartyPopper } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export default function TabAnchor() {
+interface ITabAnchorProps {
+  isIntroInView?: boolean;
+  isMapInView?: boolean;
+}
+
+export enum TabKeys {
+  intro = "intro",
+  skills = "skills",
+}
+
+export default function TabAnchor({
+  isMapInView,
+  isIntroInView,
+}: ITabAnchorProps) {
   const [t] = useTranslation("global");
   return (
     <>
@@ -14,7 +27,8 @@ export default function TabAnchor() {
             }}
             aria-label="Options"
             color="primary"
-            variant="solid"
+            variant="underlined"
+            className="bg-white bg-opacity-25 rounded-xl"
           >
             <Tab
               key="intro"
@@ -22,6 +36,7 @@ export default function TabAnchor() {
                 <div className="flex items-center space-x-2">
                   <PartyPopper />
                   <span>{t("home.tabs.intro")}</span>
+                  <span>{isIntroInView}</span>
                 </div>
               }
             />
@@ -30,7 +45,10 @@ export default function TabAnchor() {
               title={
                 <div className="flex items-center space-x-2">
                   <BookUser />
-                  <span>{t("home.tabs.skills")}</span>
+                  <span>
+                    {t("home.tabs.skills")} {isMapInView ? "vis" : "not"}
+                  </span>
+                  <span></span>
                 </div>
               }
             />

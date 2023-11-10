@@ -1,10 +1,9 @@
 // components
 import TextSplitAnimation from "@components/TextAnimation/TextSplitAnimation";
-import { Tab, Tabs } from "@nextui-org/react";
-import { BookUser, NutOffIcon, PartyPopper } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import MapSection from "../components/HomeSection/MapSection/MapSection";
-import TabAnchor from "../components/HomeSection/TabAnchor/TabAnchor";
+// components
+import MapSection from "@components/HomeSection/MapSection/MapSection";
+import TabAnchor from "@components/HomeSection/TabAnchor/TabAnchor";
 
 const HomePage = () => {
   const [t] = useTranslation("global");
