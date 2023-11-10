@@ -24,7 +24,7 @@ const HomePage = () => {
   };
   return (
     <>
-      <div className="container min-h-screen flex flex-col pt-2 gap-3 items-center ">
+      <div className="container flex flex-col pt-2 gap-3 items-center ">
         <TextSplitAnimation
           as="h2"
           className="text-[13vw] foreground uppercase"
@@ -42,10 +42,9 @@ const HomePage = () => {
         </TextSplitAnimation>
       </div>
 
-      <div className="container pt-3">
-        <div className="flex gap-24">
+      <div className="container pt-10">
+        <div className="md:columns-2">
           <motion.div
-            className="w-full m-auto "
             initial="offscreen"
             whileInView="onscreen"
             viewport={{ once: true, amount: 0.8 }}
@@ -56,7 +55,7 @@ const HomePage = () => {
           </motion.div>
           <TextSplitAnimation
             isWordSplit={true}
-            className="text-md foreground max-w-lg pt-10"
+            className="text-md foreground pt-10"
           >
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi saepe
             delectus, assumenda vel dolorem culpa maiores officia blanditiis.
