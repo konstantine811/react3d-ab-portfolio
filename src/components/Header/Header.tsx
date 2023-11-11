@@ -134,7 +134,6 @@ const Header: FC<HeaderProps> = () => {
           })}
         </NavbarMenu>
       </Navbar>
-      <Divider />
     </>
   );
 };
