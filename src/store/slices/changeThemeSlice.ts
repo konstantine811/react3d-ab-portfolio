@@ -2,11 +2,11 @@ import { RootState } from "@store/store";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ThemeType } from "@models/theme.model";
 
-export interface CursorState {
+export interface ChangeThemeSlice {
   themeType: ThemeType;
 }
 
-const initialState: CursorState = {
+const initialState: ChangeThemeSlice = {
   themeType: ThemeType.dark,
 };
 

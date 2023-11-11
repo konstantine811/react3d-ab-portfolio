@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@nextui-org/react": "2.2.5",
+    "@react-three/drei": "^9.88.13",
+    "@react-three/fiber": "^8.15.10",
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -12,6 +14,7 @@
     "@types/node": "^16.18.59",
     "@types/react": "^18.2.33",
     "@types/react-dom": "^18.2.14",
+    "@types/three": "^0.158.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.4",
@@ -30,6 +33,7 @@
     "redux": "^4.2.1",
     "sass": "^1.69.5",
     "tailwind-merge": "^2.0.0",
+    "three": "^0.158.0",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },

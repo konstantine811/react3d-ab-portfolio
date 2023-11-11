@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FC } from "react";
 import { useLocation } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
 // store
 import { ThemeType } from "@models/theme.model";
+import { onChangeHeaderHeight } from "@store/slices/changeComponentSize";
 // lib components
 import {
   Navbar,
@@ -24,19 +26,27 @@ import NavBarNestedItem from "@components/Header/NavBarNestedItem";
 import NavMenuAccordionItem from "@components/Header/NavMenuAccordionItem";
 import { ROUTE_PATH_CONFIG } from "../../App";
 import SelectLangButton from "@components/Header/SelectLangButton";
+
 // configs
 
 export interface HeaderProps {}
 
 const Header: FC<HeaderProps> = () => {
+  const refHeader = useRef<HTMLDivElement>(null);
   const [t] = useTranslation("global");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { pathname } = useLocation();
   const { setTheme, theme } = useTheme();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const headerHeight = refHeader.current?.getBoundingClientRect().height;
+    dispatch(onChangeHeaderHeight(headerHeight ? headerHeight : 0));
+  }, [refHeader, dispatch]);
 
   return (
     <>
-      <Navbar maxWidth="2xl" onMenuOpenChange={setIsMenuOpen}>
+      <Navbar ref={refHeader} maxWidth="2xl" onMenuOpenChange={setIsMenuOpen}>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden order-2"

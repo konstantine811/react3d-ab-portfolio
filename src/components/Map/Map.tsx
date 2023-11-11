@@ -9,9 +9,9 @@ interface IMapProps {
 export default function Map({ className }: IMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = React.useRef<mapboxgl.Map | null>(null);
-  const [lng, setLng] = useState(-70.9);
-  const [lat, setLat] = useState(42.35);
-  const [zoom, setZoom] = useState(0);
+  const [lng] = useState(-70.9);
+  const [lat] = useState(42.35);
+  const [zoom] = useState(0);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
