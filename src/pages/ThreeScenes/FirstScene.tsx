@@ -34,7 +34,7 @@ const FirstThreeScenes = () => {
   return (
     <>
       <div style={{ height: `calc(100vh - ${headerHeight}px)` }}>
-        <Canvas>
+        <Canvas className="touch-none">
           <color attach="background" args={[backColor]} />
           <Expirience />
         </Canvas>

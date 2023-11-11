@@ -52,11 +52,13 @@ const Header: FC<HeaderProps> = () => {
           className="sm:hidden order-2"
         />
         <NavbarContent>
-          <NavbarBrand className="gap-2">
-            <Box />
-            <p className="font-bold text-inherit uppercase">
-              CA <span className="text-sm">Portfolio</span>
-            </p>
+          <NavbarBrand>
+            <Link className="flex gap-2 text-white" href={ROUTE_PATH_CONFIG[0].path}>
+              <Box />
+              <p className="font-bold text-inherit uppercase">
+                CA <span className="text-sm">Portfolio</span>
+              </p>
+            </Link>
           </NavbarBrand>
         </NavbarContent>
         <NavbarContent className="hidden sm:flex gap-4" justify="center">

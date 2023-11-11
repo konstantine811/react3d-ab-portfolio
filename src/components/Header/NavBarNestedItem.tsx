@@ -59,7 +59,12 @@ const NavBarNestedItem: FC<NavBarNestedItemProps> = ({
                     isDisabled={pathname === iCh.path}
                   >
                     {" "}
-                    <Box key={indexCh} />
+                    <Box
+                      className={
+                        pathname === iCh.path ? "primary" : "text-success"
+                      }
+                      key={indexCh}
+                    />
                     {t(iCh.title)}
                   </Link>
                 );
