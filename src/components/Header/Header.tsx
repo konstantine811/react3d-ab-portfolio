@@ -53,7 +53,11 @@ const Header: FC<HeaderProps> = () => {
         />
         <NavbarContent>
           <NavbarBrand>
-            <Link className="flex gap-2 text-white" href={ROUTE_PATH_CONFIG[0].path}>
+            <Link
+              color="foreground"
+              className="flex gap-2 "
+              href={ROUTE_PATH_CONFIG[0].path}
+            >
               <Box />
               <p className="font-bold text-inherit uppercase">
                 CA <span className="text-sm">Portfolio</span>
@@ -119,7 +123,7 @@ const Header: FC<HeaderProps> = () => {
                   <Link
                     color={pathname === i.path ? "primary" : "foreground"}
                     href={i.path}
-                    className="w-full p-2"
+                    className="w-full px-2 py-3"
                   >
                     {t(i.title)}
                   </Link>

@@ -36,13 +36,14 @@ const NavMenuAccordionItem: FC<NavMenuAccordionItemProps> = ({
               }
               startContent={<Box className="text-primary" />}
             >
+              <Divider orientation="horizontal" />
               {routerConfig.children.map((i, index) => {
                 return (
                   <Link
                     color={pathname === i.path ? "primary" : "foreground"}
                     isDisabled={pathname === i.path}
                     href={i.path}
-                    className="w-full"
+                    className="w-full pt-3 pb-1"
                     key={index}
                   >
                     {" "}
