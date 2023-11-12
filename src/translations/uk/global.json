@@ -7,7 +7,8 @@
       "home": "Головна",
       "three-scenes": {
         "title": "3d Сцени",
-        "first-scene": "Перша сцена"
+        "first-scene": "Перша сцена",
+        "second-scene": "Друга сцена"
       }
     }
   },

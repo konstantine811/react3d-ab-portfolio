@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 // route pages components
 import FirstThreeScenes from "@pages/ThreeScenes/FirstScene";
+import SecondThreeScenes from "@pages/ThreeScenes/SecondScene";
 import HomePage from "@pages/Home";
 // models
 import { NavNamesPaths } from "@configs/navigation";
@@ -29,6 +30,11 @@ export const ROUTE_PATH_CONFIG: IRouterConfiguration[] = [
         title: "header.nav-links.three-scenes.first-scene",
         path: NavNamesPaths.threeFirstScene,
         element: <FirstThreeScenes />,
+      },
+      {
+        title: "header.nav-links.three-scenes.second-scene",
+        path: NavNamesPaths.threeSecondScene,
+        element: <SecondThreeScenes />,
       },
     ],
   },

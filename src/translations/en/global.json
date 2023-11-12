@@ -7,7 +7,8 @@
       "home": "Home",
       "three-scenes": {
         "title": "Three scenes",
-        "first-scene": "First Scene"
+        "first-scene": "First Scene",
+        "second-scene": "Second Scene"
       }
     }
   },

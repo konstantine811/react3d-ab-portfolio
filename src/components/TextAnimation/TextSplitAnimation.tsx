@@ -1,4 +1,14 @@
-import { ElementType, FC, useEffect } from "react";
+import {
+  ElementType,
+  FC,
+  MutableRefObject,
+  createRef,
+  memo,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import gsap from "gsap";
 // components
 import TextWrapper from "@components/TextWrapper/TextWrapper";
@@ -9,67 +19,86 @@ export interface ITextSplitAnimationProps {
   children: string;
   isWordSplit?: boolean;
   uniqKey?: string;
+  delay?: number;
+  duration?: number;
 }
 
-const TextSplitAnimation: FC<ITextSplitAnimationProps> = ({
-  as,
-  children,
-  className,
-  isWordSplit,
-  uniqKey = "_",
-}) => {
-  const classAnim = `txt-anim_${as}_${uniqKey}`;
-  const wordSplit = children.split(" ");
-  function fadeText() {
-    gsap.fromTo(
-      `.${classAnim}`,
-      {
-        opacity: 0,
-        y: 40,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        stagger: isWordSplit ? 0.2 : wordSplit.length / 4444,
-        duration: 2,
-        overwrite: true,
-        ease: "ease",
-      }
+const TextSplitAnimation: FC<ITextSplitAnimationProps> = memo(
+  ({
+    as,
+    children,
+    className,
+    isWordSplit,
+    uniqKey = "_",
+    delay = 0,
+    duration = 1.3,
+  }) => {
+    const [reversed, setReversed] = useState(false);
+    const textWrapRef = useRef<any>();
+    const classAnim = `txt-anim_${as}_${uniqKey}`;
+    const wordSplit = children.split(" ");
+    // store the timeline in a ref.
+    const tl = useRef<gsap.core.Timeline>(null);
+
+    useLayoutEffect(() => {
+      let ctx = gsap.context(() => {
+        const className = `.${classAnim}`;
+        (tl as any).current = gsap.timeline().fromTo(
+          className,
+          {
+            opacity: 0,
+            filter: "blur(3.33px)",
+            y: 3.33,
+            x: -3.33,
+          },
+          {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            filter: "blur(0px)",
+            stagger: isWordSplit ? 0.2 : 0.03,
+            duration: 3,
+            ease: "ease",
+          },
+          textWrapRef.current
+        );
+      });
+      return () => ctx.revert();
+    });
+
+    useEffect(() => {
+      (tl as any).current.reversed(reversed);
+    }, [reversed]);
+    return (
+      <>
+        <TextWrapper ref={textWrapRef} as={as} className={className}>
+          {wordSplit.map((word, wordIndex) => {
+            return (
+              <span
+                aria-hidden="false"
+                className={`${classAnim} opacity-0 inline-block whitespace-nowrap mr-[0.25em]`}
+                key={wordIndex}
+              >
+                {isWordSplit
+                  ? word
+                  : word.split("").map((letter, letterIndex) => {
+                      return (
+                        <span
+                          aria-hidden="true"
+                          key={letterIndex}
+                          className={`${classAnim} inline-block`}
+                        >
+                          {letter}
+                        </span>
+                      );
+                    })}
+              </span>
+            );
+          })}
+        </TextWrapper>
+      </>
     );
   }
-
-  useEffect(() => {
-    fadeText();
-  });
-  return (
-    <>
-      <TextWrapper as={as} className={className}>
-        {wordSplit.map((word, wordIndex) => {
-          return (
-            <span
-              aria-hidden="false"
-              className={`${classAnim} opacity-0 inline-block whitespace-nowrap mr-[0.25em]`}
-              key={wordIndex}
-            >
-              {isWordSplit
-                ? word
-                : word.split("").map((letter, letterIndex) => {
-                    return (
-                      <span
-                        aria-hidden="true"
-                        key={letterIndex}
-                        className={`${classAnim} inline-block`}
-                      >
-                        {letter}
-                      </span>
-                    );
-                  })}
-            </span>
-          );
-        })}
-      </TextWrapper>
-    </>
-  );
-};
+);
 
 export default TextSplitAnimation;
