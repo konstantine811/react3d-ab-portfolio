@@ -1,55 +1,53 @@
 import {
-  Float,
-  MeshReflectorMaterial,
-  PresentationControls,
-  Stage,
+  Gltf,
+  OrbitControls,
+  TransformControls,
+  useScroll,
 } from "@react-three/drei";
-import { Color } from "three";
+import { useFrame } from "@react-three/fiber";
+import { val } from "@theatre/core";
+import { PerspectiveCamera, useCurrentSheet } from "@theatre/r3f";
 
 const Expirience = () => {
+  const sheet = useCurrentSheet();
+  const scroll = useScroll();
+
+  useFrame(() => {
+    if (sheet) {
+      // the length of our sequence
+      const sequenceLength = val(sheet.sequence.pointer.length);
+      // update the "position" of the playhead in the sequence, as a fraction of its whole length
+      sheet.sequence.position = scroll.offset * sequenceLength;
+    }
+  });
+
+  const bgColor = "#84a4f4";
   return (
     <>
-      <PresentationControls
-        speed={3.5}
-        global
-        zoom={0.7}
-        polar={[-0.1, Math.PI / 2]}
-      >
-        <Stage
-          environment={"forest"}
-          adjustCamera={2}
-          intensity={0.6}
-          shadows={{ opacity: 0, type: "accumulative" }}
-        >
-          <Float
-            speed={1}
-            rotationIntensity={1}
-            floatIntensity={1}
-            floatingRange={[0, 1]}
-          >
-            <mesh>
-              <boxGeometry />
-              <meshNormalMaterial></meshNormalMaterial>
-            </mesh>
-          </Float>
-        </Stage>
-        <mesh position={[0, -0.501, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[170, 170]} />
-          <MeshReflectorMaterial
-            color={new Color("#101010")}
-            mirror={1}
-            blur={[300, 100]}
-            resolution={2048}
-            mixBlur={1}
-            mixStrength={40}
-            roughness={1}
-            depthScale={1.2}
-            minDepthThreshold={0.4}
-            maxDepthThreshold={1.4}
-            metalness={0.5}
-          />
+      {/*  <TransformControls mode="translate">
+        <mesh receiveShadow castShadow>
+          <boxGeometry />
+          <meshNormalMaterial />
         </mesh>
-      </PresentationControls>
+      </TransformControls>
+       */}
+      <fog attach="fog" color={bgColor} near={-4} far={10} />
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[-5, 5, -5]} intensity={1.5} />
+      <Gltf
+        src="/3dmodels/post-apocalyptic_camp.glb"
+        castShadow
+        receiveShadow
+      />
+      {/* <PerspectiveCamera
+        theatreKey="Camera"
+        makeDefault
+        position={[0, 0, 0]}
+        fov={90}
+        near={0.1}
+        far={70}
+      /> */}
+      <OrbitControls makeDefault />
     </>
   );
 };
