@@ -1,6 +1,4 @@
 import { Gltf, OrbitControls } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import { val } from "@theatre/core";
 
 const Expirience = () => {
   const bgColor = "#84a4f4";
