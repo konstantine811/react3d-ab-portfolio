@@ -1,8 +1,6 @@
 import {
   ElementType,
   FC,
-  MutableRefObject,
-  createRef,
   memo,
   useEffect,
   useLayoutEffect,
@@ -13,14 +11,17 @@ import gsap from "gsap";
 // components
 import TextWrapper from "@components/TextWrapper/TextWrapper";
 
+let uniqKey = 0;
+
 export interface ITextSplitAnimationProps {
   as?: ElementType;
   className?: string;
   children: string;
   isWordSplit?: boolean;
-  uniqKey?: string;
   delay?: number;
   duration?: number;
+  wordStaggerTime?: number;
+  letterStaggerTime?: number;
 }
 
 const TextSplitAnimation: FC<ITextSplitAnimationProps> = memo(
@@ -29,13 +30,16 @@ const TextSplitAnimation: FC<ITextSplitAnimationProps> = memo(
     children,
     className,
     isWordSplit,
-    uniqKey = "_",
     delay = 0,
     duration = 1.3,
+    letterStaggerTime = 0.03,
+    wordStaggerTime = 0.2,
   }) => {
-    const [reversed, setReversed] = useState(false);
+    // state
+    const [reversed] = useState(false);
     const textWrapRef = useRef<any>();
-    const classAnim = `txt-anim_${as}_${uniqKey}`;
+    const classAnim = `txt-anim_${as}_${uniqKey++}`;
+
     const wordSplit = children.split(" ");
     // store the timeline in a ref.
     const tl = useRef<gsap.core.Timeline>(null);
@@ -43,7 +47,7 @@ const TextSplitAnimation: FC<ITextSplitAnimationProps> = memo(
     useLayoutEffect(() => {
       let ctx = gsap.context(() => {
         const className = `.${classAnim}`;
-        (tl as any).current = gsap.timeline().fromTo(
+        (tl as any).current = gsap.timeline({ delay }).fromTo(
           className,
           {
             opacity: 0,
@@ -56,9 +60,9 @@ const TextSplitAnimation: FC<ITextSplitAnimationProps> = memo(
             x: 0,
             y: 0,
             filter: "blur(0px)",
-            stagger: isWordSplit ? 0.2 : 0.03,
-            duration: 3,
+            stagger: isWordSplit ? wordStaggerTime : letterStaggerTime,
             ease: "ease",
+            duration,
           },
           textWrapRef.current
         );
