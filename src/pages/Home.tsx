@@ -31,20 +31,20 @@ const HomePage = memo(() => {
             as="h2"
             className="text-[6vw] foreground uppercase overflow-hidden"
             delay={1}
-            letterStaggerTime={0.07}
+            letterStaggerTime={0.1}
           >
             {t("home.intro.name")}
           </TextSplitAnimation>
         </div>
         <TextSplitAnimation
-          delay={1.5}
+          delay={2}
           className="text-[6vw] foreground uppercase overflow-hidden"
-          letterStaggerTime={0.09}
+          letterStaggerTime={0.1}
         >
           {t("home.intro.second-name")}
         </TextSplitAnimation>
         <TextSplitAnimation
-          delay={2}
+          delay={3}
           isWordSplit={true}
           duration={0.5}
           as="p"
