@@ -5,6 +5,7 @@ import { BufferAttribute, DoubleSide, Vector3 } from "three";
 export interface ICustomMesh {
   position: Vector3;
   rotation: Euler;
+  isWareframe?: boolean;
   grid: {
     width: number;
     height: number;
@@ -29,6 +30,7 @@ export interface ICustomMesh {
 
 const CustomMesh = ({
   position,
+  isWareframe = false,
   rotation,
   grid: { height, width, sep },
   colorOfXYZT,
@@ -47,7 +49,7 @@ const CustomMesh = ({
     for (let yi = 0; yi < height; yi++) {
       for (let xi = 0; xi < width; xi++) {
         let x = sep * (xi - (width - 1) / 2);
-        let y = sep * (yi - (height - 1) / 2);
+        let y = sep * (yi - (height + 1) / 2);
         let z = zOfXYT(x, y, t);
         positions.push(x, y, z);
         let color = colorOfXYZT(x, y, z, t);
@@ -132,11 +134,15 @@ const CustomMesh = ({
           <bufferAttribute
             attach="index"
             array={indices}
-            count={indices.length / 3}
-            itemSize={3}
+            count={indices.length}
+            itemSize={1}
           />
         </bufferGeometry>
-        <meshStandardMaterial vertexColors side={DoubleSide} wireframe={true} />
+        <meshStandardMaterial
+          vertexColors
+          side={DoubleSide}
+          wireframe={isWareframe}
+        />
       </mesh>
     </>
   );

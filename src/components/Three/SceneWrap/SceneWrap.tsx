@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { ReactNode, Suspense, useEffect, useState } from "react";
 // models
 import { NEXTUIVars } from "@models/nextUIVars.model";
+import { Leva } from "leva";
 
 export interface ISceneWrap {
   children: ReactNode;
@@ -37,6 +38,7 @@ const SceneWrap = ({ children }: ISceneWrap) => {
   return (
     <>
       <Suspense fallback={null}>
+        <Leva />
         <div style={{ height: `calc(100vh - ${headerHeight}px)` }}>
           <Canvas
             shadows
