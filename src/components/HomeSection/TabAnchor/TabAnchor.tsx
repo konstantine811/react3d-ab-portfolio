@@ -10,7 +10,6 @@ import {
 } from "@store/slices/changeSectionScroll";
 // models
 import { SectionIds } from "@models/pageSection.model";
-import { setTimeout } from "timers/promises";
 
 interface ITabAnchorProps {
   isIntroInView?: boolean;
@@ -36,7 +35,9 @@ export default function TabAnchor({
           <Tabs
             onSelectionChange={(e) => {
               document.getElementById(e as string)?.scrollIntoView();
-              dispatch(onChangeSectionScroll(e as SectionIds));
+              setTimeout(() => {
+                dispatch(onChangeSectionScroll(e as SectionIds));
+              }, 500);
             }}
             selectedKey={onCurrentSectionState}
             aria-label="Options"
