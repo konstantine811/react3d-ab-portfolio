@@ -1,6 +1,6 @@
 import mapboxgl from "mapbox-gl";
 import React, { useEffect, useRef, useState } from "react";
-import { isMobile } from "react-device-detect";
+/* import { isMobile } from "react-device-detect"; */
 
 interface IMapProps {
   className?: string;
