@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 //
-import changeThemeSlice from "@store/slices/changeThemeSlice";
-import changeComponentSize from "@store/slices/changeComponentSize";
+import onChangeTheme from "@store/slices/changeThemeSlice";
+import onChangeComponentSize from "@store/slices/changeComponentSize";
+import onChangeSectionScroll from "@store/slices/changeSectionScroll";
 
 export const store = configureStore({
   reducer: {
-    onChangeTheme: changeThemeSlice,
-    onChangeComponentSize: changeComponentSize,
+    onChangeTheme,
+    onChangeComponentSize,
+    onChangeSectionScroll,
   },
 });

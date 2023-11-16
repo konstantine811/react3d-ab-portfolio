@@ -4,7 +4,7 @@ import { forwardRef, useRef } from "react";
 import Map from "@components/Map/Map";
 
 interface IMapSection {
-  id: string;
+  id?: string;
 }
 
 const MapSection = forwardRef<HTMLDivElement, IMapSection>(({ id }, ref) => {

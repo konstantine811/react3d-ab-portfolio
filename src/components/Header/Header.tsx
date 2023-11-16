@@ -60,7 +60,7 @@ const Header: FC<HeaderProps> = () => {
             >
               <Box />
               <p className="font-bold text-inherit uppercase">
-                CA <span className="text-sm">Portfolio</span>
+                CA <span className="text-sm sm:inline hidden">Portfolio</span>
               </p>
             </Link>
           </NavbarBrand>

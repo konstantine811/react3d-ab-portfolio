@@ -1,6 +1,16 @@
-import { Tab, Tabs } from "@nextui-org/react";
-import { BookUser, PartyPopper } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+// lib components
+import { BookUser, PartyPopper } from "lucide-react";
+import { Tab, Tabs } from "@nextui-org/react";
+// storage
+import {
+  currentSectionState,
+  onChangeSectionScroll,
+} from "@store/slices/changeSectionScroll";
+// models
+import { SectionIds } from "@models/pageSection.model";
+import { setTimeout } from "timers/promises";
 
 interface ITabAnchorProps {
   isIntroInView?: boolean;
@@ -17,6 +27,8 @@ export default function TabAnchor({
   isIntroInView,
 }: ITabAnchorProps) {
   const [t] = useTranslation("global");
+  const onCurrentSectionState = useSelector(currentSectionState);
+  const dispatch = useDispatch();
   return (
     <>
       <div className="sticky bottom-3 pt-5">
@@ -24,14 +36,14 @@ export default function TabAnchor({
           <Tabs
             onSelectionChange={(e) => {
               document.getElementById(e as string)?.scrollIntoView();
+              dispatch(onChangeSectionScroll(e as SectionIds));
             }}
+            selectedKey={onCurrentSectionState}
             aria-label="Options"
             color="primary"
-            variant="underlined"
-            className="bg-white bg-opacity-25 rounded-xl"
           >
             <Tab
-              key="intro"
+              key={SectionIds.intro}
               title={
                 <div className="flex items-center space-x-2">
                   <PartyPopper />
@@ -41,7 +53,7 @@ export default function TabAnchor({
               }
             />
             <Tab
-              key="skills"
+              key={SectionIds.skills}
               title={
                 <div className="flex items-center space-x-2">
                   <BookUser />

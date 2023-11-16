@@ -6,27 +6,29 @@ import MapSection from "@components/HomeSection/MapSection/MapSection";
 import TabAnchor from "@components/HomeSection/TabAnchor/TabAnchor";
 import { useSelector } from "react-redux";
 import { headerHeightState } from "@store/slices/changeComponentSize";
-import { memo, useState } from "react";
+import { memo } from "react";
+import SectionObserveInView from "@components/SectionObserveInView/SectionObserveInView";
+import { SectionIds } from "@models/pageSection.model";
 
 const HomePage = memo(() => {
   const [t] = useTranslation("global");
   const headerHeight = useSelector(headerHeightState);
   return (
     <>
-      <div
-        id="intro"
+      <SectionObserveInView
+        id={SectionIds.intro}
         style={{ minHeight: `calc(100vh - ${headerHeight}px)` }}
         className="container flex flex-col pt-20 gap-3  justify-between"
       >
-        <TextSplitAnimation
-          as="h2"
-          className="text-[12vw] foreground uppercase overflow-hidden"
-          duration={3}
-          letterStaggerTime={0.3}
-        >
-          Portfolio
-        </TextSplitAnimation>
-        <div>
+        <div className="flex flex-col gap-3 sm:justify-between">
+          <TextSplitAnimation
+            as="h2"
+            className="text-[12vw] foreground uppercase overflow-hidden"
+            duration={3}
+            letterStaggerTime={0.3}
+          >
+            Portfolio
+          </TextSplitAnimation>
           <TextSplitAnimation
             as="h2"
             className="text-[6vw] foreground uppercase overflow-hidden"
@@ -35,14 +37,14 @@ const HomePage = memo(() => {
           >
             {t("home.intro.name")}
           </TextSplitAnimation>
+          <TextSplitAnimation
+            delay={2}
+            className="text-[6vw] foreground uppercase overflow-hidden"
+            letterStaggerTime={0.1}
+          >
+            {t("home.intro.second-name")}
+          </TextSplitAnimation>
         </div>
-        <TextSplitAnimation
-          delay={2}
-          className="text-[6vw] foreground uppercase overflow-hidden"
-          letterStaggerTime={0.1}
-        >
-          {t("home.intro.second-name")}
-        </TextSplitAnimation>
         <TextSplitAnimation
           delay={3}
           isWordSplit={true}
@@ -52,8 +54,10 @@ const HomePage = memo(() => {
         >
           {t("home.intro.about-text")}
         </TextSplitAnimation>
-      </div>
-      <MapSection id="skills" />
+      </SectionObserveInView>
+      <SectionObserveInView id={SectionIds.skills}>
+        <MapSection />
+      </SectionObserveInView>
       <TabAnchor />
     </>
   );
