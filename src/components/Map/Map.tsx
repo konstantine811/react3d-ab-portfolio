@@ -20,7 +20,8 @@ export default function Map({ className }: IMapProps) {
     if (mapContainer && mapContainer.current) {
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
-        style: isMobile ? satelliteUrl : ownMap,
+        /*  style: isMobile ? satelliteUrl : ownMap, */
+        style: ownMap,
         center: [lng, lat],
         zoom: zoom,
       });
