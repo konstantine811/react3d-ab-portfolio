@@ -12,6 +12,7 @@ import { IRouterConfiguration } from "@models/navigation.model";
 import { Providers } from "@providers/nextui/providers";
 
 import mapboxgl from "mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
+import { Box, Layers } from "lucide-react";
 
 mapboxgl.accessToken =
   "pk.eyJ1Ijoia29uc3RhbnRpbmU4MTEiLCJhIjoiY2themphMDhpMGsyazJybWlpbDdmMGthdSJ9.m2RIe_g8m5dqbce0JrO73w";
@@ -30,11 +31,13 @@ export const ROUTE_PATH_CONFIG: IRouterConfiguration[] = [
         title: "header.nav-links.three-scenes.first-scene",
         path: NavNamesPaths.threeFirstScene,
         element: <FirstThreeScenes />,
+        icon: <Box />,
       },
       {
         title: "header.nav-links.three-scenes.second-scene",
         path: NavNamesPaths.threeSecondScene,
         element: <SecondThreeScenes />,
+        icon: <Layers />,
       },
     ],
   },

@@ -9,4 +9,5 @@ export interface IRouterConfiguration {
   path?: NavNamesPaths;
   element?: JSX.Element;
   children?: IRouterConfiguration[];
+  icon?: JSX.Element;
 }

@@ -1,5 +1,4 @@
 import { cn } from "@lib/merge-classes-utils";
-import { IRouterConfiguration } from "@models/navigation.model";
 import {
   Link,
   NavbarItem,
@@ -10,6 +9,8 @@ import {
 import { Box } from "lucide-react";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
+// models
+import { IRouterConfiguration } from "@models/navigation.model";
 
 export interface NavBarNestedItemProps {
   pathname: string;
@@ -53,18 +54,22 @@ const NavBarNestedItem: FC<NavBarNestedItemProps> = ({
                 return (
                   <Link
                     key={indexCh}
-                    className={cn("flex gap-3 px-3 py-2")}
+                    className={cn("w-full flex gap-3 px-3 py-2 justify-start")}
                     href={iCh.path}
                     color={pathname === iCh.path ? "primary" : "foreground"}
                     isDisabled={pathname === iCh.path}
                   >
-                    {" "}
-                    <Box
-                      className={
-                        pathname === iCh.path ? "primary" : "text-success"
-                      }
-                      key={indexCh}
-                    />
+                    {iCh.icon ? (
+                      <span
+                        className={
+                          pathname === iCh.path ? "primary" : "text-success"
+                        }
+                        key={indexCh}
+                      >
+                        {iCh.icon}
+                      </span>
+                    ) : null}
+
                     {t(iCh.title)}
                   </Link>
                 );
