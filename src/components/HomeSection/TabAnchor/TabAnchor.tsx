@@ -1,13 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // lib components
 import { BookUser, PartyPopper } from "lucide-react";
 import { Tab, Tabs } from "@nextui-org/react";
 // storage
-import {
-  currentSectionState,
-  onChangeSectionScroll,
-} from "@store/slices/changeSectionScroll";
+import { currentSectionState } from "@store/slices/changeSectionScroll";
 // models
 import { SectionIds } from "@models/pageSection.model";
 
@@ -27,7 +24,6 @@ export default function TabAnchor({
 }: ITabAnchorProps) {
   const [t] = useTranslation("global");
   const onCurrentSectionState = useSelector(currentSectionState);
-  const dispatch = useDispatch();
   return (
     <>
       <div className="sticky bottom-3 pt-5">

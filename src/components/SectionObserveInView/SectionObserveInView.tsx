@@ -1,17 +1,9 @@
-import {
-  CSSProperties,
-  ReactNode,
-  RefObject,
-  createRef,
-  memo,
-  useCallback,
-  useEffect,
-} from "react";
-
+import { CSSProperties, ReactNode, memo, useCallback, useEffect } from "react";
+// store
 import { useDispatch } from "react-redux";
 import { onChangeSectionScroll } from "@store/slices/changeSectionScroll";
+// models
 import { SectionIds } from "@models/pageSection.model";
-import { inView } from "framer-motion/dom";
 
 export interface ISectionObserveInView {
   children: ReactNode;

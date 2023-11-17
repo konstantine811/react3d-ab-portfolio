@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { forwardRef, useRef } from "react";
+import { useRef } from "react";
 // components
 import Map from "@components/Map/Map";
 

@@ -6,7 +6,7 @@ import MapSection from "@components/HomeSection/MapSection/MapSection";
 import TabAnchor from "@components/HomeSection/TabAnchor/TabAnchor";
 import { useSelector } from "react-redux";
 import { headerHeightState } from "@store/slices/changeComponentSize";
-import { createRef, memo, useRef } from "react";
+import { memo } from "react";
 import SectionObserveInView from "@components/SectionObserveInView/SectionObserveInView";
 import { SectionIds } from "@models/pageSection.model";
 
