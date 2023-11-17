@@ -11,7 +11,7 @@ const initialState: ChangeSectionScroll = {
 };
 
 export const changeSectionScrollSlice = createSlice({
-  name: "changeComponentSize",
+  name: "changeSectionScrollSlice",
   initialState,
   reducers: {
     onChangeSectionScroll: (state, action: PayloadAction<SectionIds>) => {

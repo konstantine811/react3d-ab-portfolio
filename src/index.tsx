@@ -35,9 +35,7 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <I18nextProvider i18n={i18next}>
-          <div className="w-screen h-screen">
-            <App />
-          </div>
+          <App />
         </I18nextProvider>
       </Provider>
     </BrowserRouter>

@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux";
 import { Canvas } from "@react-three/fiber";
 import { Color } from "three";
+import { ReactNode, Suspense, useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 // store
 import { headerHeightState } from "@store/slices/changeComponentSize";
-import { useTheme } from "next-themes";
-import { ReactNode, Suspense, useEffect, useState } from "react";
+import { cameraPosition } from "@store/slices/changeThreeScene";
 // models
 import { NEXTUIVars } from "@models/nextUIVars.model";
 import { Leva } from "leva";
@@ -18,6 +19,7 @@ const SceneWrap = ({ children }: ISceneWrap) => {
   const { theme } = useTheme();
   const threeColorBack = new Color("#151515");
   const [backColor, setBackColor] = useState<Color>(threeColorBack);
+  const sceneCameraPosition = useSelector(cameraPosition);
 
   function onSetBackColor() {
     setTimeout(() => {
@@ -44,6 +46,7 @@ const SceneWrap = ({ children }: ISceneWrap) => {
             shadows
             gl={{ preserveDrawingBuffer: true }}
             className="touch-none"
+            camera={{ fov: 75, position: sceneCameraPosition }}
           >
             <color attach="background" args={[backColor]} />
             {children}
