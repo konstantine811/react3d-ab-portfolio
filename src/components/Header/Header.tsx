@@ -107,7 +107,7 @@ const Header: FC<HeaderProps> = () => {
             <SelectLangButton />
           </NavbarItem>
         </NavbarContent>
-        <NavbarMenu>
+        <NavbarMenu className="z-[100000]">
           {ROUTE_PATH_CONFIG.map((i, index) => {
             if (i.children?.length) {
               return (

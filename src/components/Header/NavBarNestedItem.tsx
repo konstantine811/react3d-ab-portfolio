@@ -31,6 +31,12 @@ const NavBarNestedItem: FC<NavBarNestedItemProps> = ({
           onMouseEnter={() => {
             setIsShowing((m) => true);
           }}
+          onTouchStart={() => {
+            setIsShowing((m) => true);
+          }}
+          onTouchEnd={() => {
+            setIsShowing(false);
+          }}
           onMouseLeave={() => {
             setIsShowing(false);
           }}
