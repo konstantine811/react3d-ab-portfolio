@@ -6,7 +6,7 @@ import MapSection from "@components/HomeSection/MapSection/MapSection";
 import TabAnchor from "@components/HomeSection/TabAnchor/TabAnchor";
 import { useSelector } from "react-redux";
 import { headerHeightState } from "@store/slices/changeComponentSize";
-import { memo } from "react";
+import { createRef, memo, useRef } from "react";
 import SectionObserveInView from "@components/SectionObserveInView/SectionObserveInView";
 import { SectionIds } from "@models/pageSection.model";
 
@@ -21,14 +21,17 @@ const HomePage = memo(() => {
         className="container flex flex-col pt-20 gap-3  justify-between"
       >
         <div className="flex flex-col gap-3 sm:justify-between">
-          <TextSplitAnimation
-            as="h2"
-            className="text-[12vw] foreground uppercase overflow-hidden"
-            duration={3}
-            letterStaggerTime={0.3}
-          >
-            Portfolio
-          </TextSplitAnimation>
+          <div>
+            <TextSplitAnimation
+              as="h2"
+              id={SectionIds.intro}
+              className="text-[12vw] foreground uppercase overflow-hidden"
+              duration={3}
+              letterStaggerTime={0.3}
+            >
+              Portfolio
+            </TextSplitAnimation>
+          </div>
           <TextSplitAnimation
             as="h2"
             className="text-[6vw] foreground uppercase overflow-hidden"
@@ -56,7 +59,7 @@ const HomePage = memo(() => {
         </TextSplitAnimation>
       </SectionObserveInView>
       <SectionObserveInView id={SectionIds.skills}>
-        <MapSection />
+        <MapSection id={SectionIds.skills} />
       </SectionObserveInView>
       <TabAnchor />
     </>

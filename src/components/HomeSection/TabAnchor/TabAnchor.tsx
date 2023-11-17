@@ -35,9 +35,6 @@ export default function TabAnchor({
           <Tabs
             onSelectionChange={(e) => {
               document.getElementById(e as string)?.scrollIntoView();
-              setTimeout(() => {
-                dispatch(onChangeSectionScroll(e as SectionIds));
-              }, 500);
             }}
             selectedKey={onCurrentSectionState}
             aria-label="Options"

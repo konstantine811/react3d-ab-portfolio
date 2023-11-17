@@ -22,6 +22,7 @@ export interface ITextSplitAnimationProps {
   duration?: number;
   wordStaggerTime?: number;
   letterStaggerTime?: number;
+  id?: string;
 }
 
 const TextSplitAnimation: FC<ITextSplitAnimationProps> = memo(
@@ -34,6 +35,7 @@ const TextSplitAnimation: FC<ITextSplitAnimationProps> = memo(
     duration = 1.3,
     letterStaggerTime = 0.03,
     wordStaggerTime = 0.2,
+    id,
   }) => {
     // state
     const [reversed] = useState(false);
@@ -75,7 +77,7 @@ const TextSplitAnimation: FC<ITextSplitAnimationProps> = memo(
     }, [reversed]);
     return (
       <>
-        <TextWrapper ref={textWrapRef} as={as} className={className}>
+        <TextWrapper id={id} ref={textWrapRef} as={as} className={className}>
           {wordSplit.map((word, wordIndex) => {
             return (
               <span

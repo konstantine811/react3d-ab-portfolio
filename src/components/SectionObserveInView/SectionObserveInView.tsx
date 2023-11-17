@@ -1,8 +1,17 @@
-import { CSSProperties, ReactNode, memo, useRef } from "react";
-import { useScroll } from "framer-motion";
+import {
+  CSSProperties,
+  ReactNode,
+  RefObject,
+  createRef,
+  memo,
+  useCallback,
+  useEffect,
+} from "react";
+
 import { useDispatch } from "react-redux";
 import { onChangeSectionScroll } from "@store/slices/changeSectionScroll";
 import { SectionIds } from "@models/pageSection.model";
+import { inView } from "framer-motion/dom";
 
 export interface ISectionObserveInView {
   children: ReactNode;
@@ -13,17 +22,36 @@ export interface ISectionObserveInView {
 
 const SectionObserveInView = memo(
   ({ children, id, className, style }: ISectionObserveInView) => {
-    const ref = useRef<HTMLDivElement>(null);
     const dispatch = useDispatch();
-    const { scrollYProgress } = useScroll({
-      target: ref,
-    });
-    scrollYProgress.on("change", (e) => {
-      dispatch(onChangeSectionScroll(id));
-    });
+    const element = document.getElementById(id);
+    const callbackFunction = useCallback(
+      (entries: IntersectionObserverEntry[]) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          dispatch(onChangeSectionScroll(id));
+        }
+      },
+      [dispatch, id]
+    );
+    useEffect(() => {
+      const options = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 1.0,
+      };
+      const observer = new IntersectionObserver(callbackFunction, options);
+      if (element) {
+        observer.observe(element);
+      }
+      return () => {
+        if (element) {
+          observer.unobserve(element);
+        }
+      };
+    }, [element, callbackFunction]);
     return (
       <>
-        <div id={id} ref={ref} className={className} style={style}>
+        <div style={style} className={className}>
           {children}
         </div>
       </>
