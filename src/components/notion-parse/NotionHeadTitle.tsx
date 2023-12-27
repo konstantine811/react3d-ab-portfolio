@@ -13,7 +13,7 @@ const NotionHeadTitle: FC<INotionHeadTitleProperties> = ({ data, id }) => {
       <TextSplitAnimation
         as="h1"
         id={id}
-        className="text-[3vw] text-center foreground uppercase overflow-hidden"
+        className="text-6xl text-center foreground uppercase overflow-hidden"
         duration={0.91}
         letterStaggerTime={0.09}
       >
