@@ -1,4 +1,4 @@
-import { ElementType, FC, ReactNode, forwardRef, memo } from "react";
+import { ElementType, ReactNode, forwardRef, memo } from "react";
 // utils
 import { cn } from "@lib/merge-classes-utils";
 

@@ -56,6 +56,7 @@ const BlogArticlePage = () => {
                           data={
                             item.properties as INotion.ContentPageProperties
                           }
+                          format={item.format as IBlog.BlogCoverFormat}
                           id={item.id}
                         />
                       );
@@ -70,6 +71,10 @@ const BlogArticlePage = () => {
                         </div>
                       );
                     case INotion.TypeContent.text:
+                    case INotion.TypeContent.header:
+                    case INotion.TypeContent.sub_header:
+                    case INotion.TypeContent.sub_sub_header:
+                    case INotion.TypeContent.quote:
                       return (
                         <div key={item.id} className="mt-6">
                           {item.properties ? (
@@ -77,6 +82,7 @@ const BlogArticlePage = () => {
                               data={
                                 item.properties as INotion.ContentTextProperties
                               }
+                              type={item.type}
                             />
                           ) : null}
                         </div>
@@ -93,11 +99,6 @@ const BlogArticlePage = () => {
                         </div>
                       );
                   }
-                  return (
-                    <span key={item.id}>
-                      {item.properties ? item.properties.title : ""}
-                    </span>
-                  );
                 })
               : null}
           </div>

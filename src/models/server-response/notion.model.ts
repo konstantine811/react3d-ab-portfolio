@@ -15,6 +15,10 @@ export namespace INotion {
     code = "code",
     text = "text",
     image = "image",
+    sub_sub_header = "sub_sub_header",
+    sub_header = "sub_header",
+    header = "header",
+    quote = "quote",
   }
 
   export interface ContentPageProperties {
