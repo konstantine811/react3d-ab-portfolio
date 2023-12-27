@@ -1,55 +1,107 @@
-import { headerHeightState } from "@store/slices/changeComponentSize";
-import { useRef } from "react";
-import { LocomotiveScrollProvider } from "react-locomotive-scroll";
-import { useSelector } from "react-redux";
-import TextSplitAnimation from "@components/TextAnimation/TextSplitAnimation";
+import { useTranslation } from "react-i18next";
+import { Fragment } from "react";
+import { DataFormat } from "@configs/common";
+import Moment from "react-moment";
+// server request helpers
+import { QueryBlogItems } from "@helpers/server-request";
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Image,
+  Spinner,
+} from "@nextui-org/react";
+// helpers
+import { useNavigate } from "react-router-dom";
 
 const BlogPage = () => {
-  const containerRef = useRef<HTMLElement>(null);
-  const headerHeight = useSelector(headerHeightState);
+  const navigate = useNavigate();
+  const blogConfigItems = QueryBlogItems();
+  const [t] = useTranslation("global");
   return (
-    <LocomotiveScrollProvider
-      options={{
-        smooth: false,
-      }}
-      containerRef={containerRef}
-    >
-      <main
-        className="flex flex-col gap-5"
-        data-scroll-container
-        ref={containerRef}
-      >
-        <div className="container">
-          <div style={{ minHeight: `calc(100vh - ${headerHeight}px)` }}>
-            <TextSplitAnimation as="h1" className="text-[6vw] text-center">
-              What is SVG
-            </TextSplitAnimation>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <TextSplitAnimation duration={0.1} as="p">
-                  The svg tag defines a container for SVG graphics. SVG has
-                  several methods for drawing paths, boxes, circles, text, and
-                  graphic images. To learn more about SVG, please read our SVG
-                  Tutorial.
-                </TextSplitAnimation>
-              </div>
-              <iframe
-                src="https://codesandbox.io/embed/kind-bird-qfs924?fontsize=14&hidenavigation=1&theme=dark"
-                className="w-full h-96 border-0 rounded overflow-hidden md:col-span-1 col-span-2"
-                title="kind-bird-qfs924"
-                allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-                sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-              ></iframe>
-            </div>
-          </div>
-          <div style={{ minHeight: `calc(100vh - ${headerHeight}px)` }}></div>
-          <div
-            style={{ minHeight: `calc(100vh - ${headerHeight}px)` }}
-            className=" bg-orange-300"
-          ></div>
-        </div>
-      </main>
-    </LocomotiveScrollProvider>
+    <main className="flex flex-col gap-5 font-fira">
+      {blogConfigItems && blogConfigItems.length ? (
+        blogConfigItems.map((blogItem) => {
+          return (
+            <Fragment key={blogItem.id}>
+              <Card className="h-[250px] mb-3">
+                <div className="container max-w-screen-lg">
+                  <CardHeader className="absolute z-10 top-1 flex-col !items-start">
+                    <h1 className="text-[6vw] text-center text-white">
+                      {blogItem.title}
+                    </h1>
+                  </CardHeader>
+                </div>
+                <Image
+                  removeWrapper
+                  alt="Card background"
+                  className="z-0 w-full h-full object-cover"
+                  src={blogItem.format?.page_cover}
+                />
+              </Card>
+
+              {blogItem.children && blogItem.children.length ? (
+                <div className="container max-w-screen-lg">
+                  <div className="gap-2 grid grid-cols-2 sm:grid-cols-4">
+                    {blogItem.children.map((blogItemChild) => {
+                      return (
+                        <Card
+                          isPressable
+                          onPress={() => navigate(blogItemChild.id)}
+                          key={blogItemChild.id}
+                        >
+                          <CardBody className="overflow-visible p-0">
+                            <Image
+                              shadow="sm"
+                              radius="lg"
+                              width="100%"
+                              alt={blogItemChild.title}
+                              className="w-full object-cover h-[140px]"
+                              src={blogItemChild.format?.page_cover}
+                            />
+                          </CardBody>
+                          <CardFooter className=" flex-col items-start">
+                            <p className="text-tiny uppercase font-bold">
+                              <span className="mr-1">
+                                {t("blog.blog-items.created-time")}
+                              </span>
+                              <Moment format={DataFormat.pointTime}>
+                                {blogItemChild.created_time}
+                              </Moment>
+                            </p>
+                            <small className="text-default-500">
+                              <span className="mr-1">
+                                {t("blog.blog-items.edited-time")}
+                              </span>
+                              <Moment format={DataFormat.pointTime}>
+                                {blogItemChild.last_edited_time}
+                              </Moment>
+                            </small>
+                            <h4 className="font-bold text-large text-left">
+                              {blogItemChild.format?.page_icon ? (
+                                <span className="mr-2">
+                                  {" "}
+                                  {blogItemChild.format?.page_icon}
+                                </span>
+                              ) : null}
+
+                              {blogItemChild.title}
+                            </h4>
+                          </CardFooter>
+                        </Card>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+            </Fragment>
+          );
+        })
+      ) : (
+        <Spinner />
+      )}
+    </main>
   );
 };
 

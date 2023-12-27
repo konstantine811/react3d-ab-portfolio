@@ -1,4 +1,4 @@
-import { Gltf, OrbitControls } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { ReactNode } from "react";
 
 export interface IExpirience {
@@ -6,7 +6,6 @@ export interface IExpirience {
 }
 
 const Expirience = ({ children }: IExpirience) => {
-  const bgColor = "#84a4f4";
   return (
     <>
       {/*  <TransformControls mode="translate">

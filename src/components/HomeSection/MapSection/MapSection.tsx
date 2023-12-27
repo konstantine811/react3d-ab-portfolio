@@ -22,9 +22,9 @@ const MapSection = ({ id }: IMapSection) => {
           <motion.div
             style={{ scale, opacity }}
             ref={mapWrapRef}
-            className="overflow-hidden rounded-3xl lg:col-span-4 col-span-6"
+            className="lg:col-span-4 col-span-6 overflow-hidden  rounded-lg"
           >
-            <Map className="w-full md:h-[800px] h-96 m-auto   border" />
+            <Map className="w-full md:h-[800px] h-96 m-auto" />
           </motion.div>
           <p className="text-md foreground lg:col-span-2 col-span-6 max-w-sm text-right">
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi saepe

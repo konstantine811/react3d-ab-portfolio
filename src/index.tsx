@@ -1,45 +1,57 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+// i18next
+import i18next from "i18next";
+import { I18nextProvider } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 // libs
 import "./index.scss";
+import "moment-timezone";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { store } from "@store/slices/index.store";
 // translations
 import global_en from "@translations/en/global.json";
 import global_uk from "@translations/uk/global.json";
-import i18next from "i18next";
-import { I18nextProvider } from "react-i18next";
+// models
 import { LangType } from "@models/lang.model";
 
-i18next.init({
-  interpolation: { escapeValue: false },
-  lng: LangType.en,
-  resources: {
-    en: {
-      global: global_en,
+i18next
+  .use(LanguageDetector)
+  // pass the i18n instance to react-i18next.
+  .init({
+    interpolation: { escapeValue: false },
+    lng: LangType.en,
+    resources: {
+      en: {
+        global: global_en,
+      },
+      uk: {
+        global: global_uk,
+      },
     },
-    uk: {
-      global: global_uk,
-    },
-  },
-});
+  });
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+// Create a client
+const queryClient = new QueryClient();
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
+  <BrowserRouter>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
         <I18nextProvider i18n={i18next}>
           <App />
         </I18nextProvider>
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </Provider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

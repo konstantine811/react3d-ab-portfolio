@@ -6,8 +6,14 @@ export interface IPopoverHoverProps {
 
 export interface IRouterConfiguration {
   title: string;
-  path?: NavNamesPaths;
+  path?: NavNamesPaths | string;
   element?: JSX.Element;
   children?: IRouterConfiguration[];
   icon?: JSX.Element;
+  byId?: IRouterConfigurationById;
+}
+
+export interface IRouterConfigurationById {
+  param: string;
+  element: JSX.Element;
 }

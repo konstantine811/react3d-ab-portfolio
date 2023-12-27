@@ -13,6 +13,9 @@ module.exports = {
         padding: "2rem",
         screens: {},
       },
+      fontFamily: {
+        fira: ["Fira Sans", "sans-serif"],
+      },
     },
   },
   darkMode: "class",
@@ -20,13 +23,15 @@ module.exports = {
     nextui({
       themes: {
         light: {
-          colors: {},
+          colors: {
+            background: "#FFFFFF",
+            foreground: "#11181C",
+          },
         },
         dark: {
           colors: {
-            primary: {
-              DEFAULT: "#006FEE",
-            },
+            background: "#000000",
+            foreground: "#ECEDEE",
           },
           // ... rest of the colors
         },

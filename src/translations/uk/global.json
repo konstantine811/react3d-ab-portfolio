@@ -9,7 +9,9 @@
       "three-scenes": {
         "title": "3d Сцени",
         "first-scene": "Перша сцена",
-        "second-scene": "Друга сцена"
+        "second-scene": "Друга сцена",
+        "load-models-train": "Тренування з завантаженням 3d моделей",
+        "airplane-game": "3d Літачок по горам"
       }
     }
   },
@@ -22,6 +24,17 @@
     "tabs": {
       "intro": "Інтро",
       "skills": "Досвід"
+    }
+  },
+  "blog": {
+    "svg": {
+      "first-lesson": {
+        "title": "Що таке <1>SVG</1>"
+      }
+    },
+    "blog-items": {
+      "created-time": "Створено:",
+      "edited-time": "Редаговано:"
     }
   }
 }

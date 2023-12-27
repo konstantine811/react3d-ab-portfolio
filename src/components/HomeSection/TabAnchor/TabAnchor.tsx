@@ -51,9 +51,7 @@ export default function TabAnchor({
               title={
                 <div className="flex items-center space-x-2">
                   <BookUser />
-                  <span>
-                    {t("home.tabs.skills")} {isMapInView ? "vis" : "not"}
-                  </span>
+                  <span>{t("home.tabs.skills")}</span>
                   <span></span>
                 </div>
               }

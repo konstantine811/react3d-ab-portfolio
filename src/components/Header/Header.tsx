@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FC } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, matchPath } from "react-router-dom";
 import { useTheme } from "next-themes";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
@@ -19,13 +19,16 @@ import {
   NavbarMenuItem,
   Divider,
   Switch,
+  Button,
+  Tooltip,
 } from "@nextui-org/react";
-import { Box, Moon, Sun } from "lucide-react";
+import { Box, LogInIcon, Moon, Sun } from "lucide-react";
 // components
 import NavBarNestedItem from "@components/Header/NavBarNestedItem";
 import NavMenuAccordionItem from "@components/Header/NavMenuAccordionItem";
 import { ROUTE_PATH_CONFIG } from "../../App";
 import SelectLangButton from "@components/Header/SelectLangButton";
+import { IRouterConfiguration } from "@models/navigation.model";
 
 // configs
 
@@ -36,6 +39,19 @@ const Header: FC<HeaderProps> = () => {
   const [t] = useTranslation("global");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { pathname } = useLocation();
+
+  function isMatch(i: IRouterConfiguration): boolean {
+    if (i.byId) {
+      const ism = matchPath({ path: `${i.path}/${i.byId.param}` }, pathname);
+      if (ism) {
+        return `${i.path}/${ism.params.id}` === pathname;
+      }
+      return i.path === pathname;
+    } else {
+      return i.path === pathname;
+    }
+  }
+
   const { setTheme, theme } = useTheme();
   const dispatch = useDispatch();
 
@@ -77,9 +93,9 @@ const Header: FC<HeaderProps> = () => {
               );
             } else {
               return (
-                <NavbarItem isActive={pathname === i.path} key={index}>
+                <NavbarItem isActive={isMatch(i)} key={index}>
                   <Link
-                    color={pathname === i.path ? "primary" : "foreground"}
+                    color={isMatch(i) ? "primary" : "foreground"}
                     href={i.path}
                   >
                     {t(i.title)}
@@ -106,6 +122,13 @@ const Header: FC<HeaderProps> = () => {
           <NavbarItem>
             <SelectLangButton />
           </NavbarItem>
+          {/* <NavbarItem>
+            <Tooltip content="Sing up">
+              <Button variant="faded" color="primary" isIconOnly>
+                <LogInIcon />
+              </Button>
+            </Tooltip>
+          </NavbarItem> */}
         </NavbarContent>
         <NavbarMenu className="z-[100000]">
           {ROUTE_PATH_CONFIG.map((i, index) => {

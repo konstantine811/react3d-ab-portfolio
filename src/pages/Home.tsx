@@ -15,7 +15,7 @@ const HomePage = memo(() => {
   const headerHeight = useSelector(headerHeightState);
   return (
     <>
-      <SectionObserveInView
+      <div
         id={SectionIds.intro}
         style={{ minHeight: `calc(100vh - ${headerHeight}px)` }}
         className="container flex flex-col pt-20 gap-3  justify-between"
@@ -57,11 +57,9 @@ const HomePage = memo(() => {
         >
           {t("home.intro.about-text")}
         </TextSplitAnimation>
-      </SectionObserveInView>
-      <SectionObserveInView id={SectionIds.skills}>
-        <MapSection id={SectionIds.skills} />
-      </SectionObserveInView>
-      <TabAnchor />
+      </div>
+      <MapSection id={SectionIds.skills} />
+      {/* <TabAnchor /> */}
     </>
   );
 });

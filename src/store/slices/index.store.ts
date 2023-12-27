@@ -12,4 +12,8 @@ export const store = configureStore({
     onChangeSectionScroll,
     onChangeThreeScene,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
