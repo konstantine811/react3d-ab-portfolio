@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 // i18next
 import i18next from "i18next";

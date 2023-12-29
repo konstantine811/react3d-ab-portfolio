@@ -9,13 +9,17 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 // models
 import { LangType } from "@models/lang.model";
+import { useDispatch } from "react-redux";
+import { onChangeLanguage } from "@store/slices/changeLangeSlice";
 
 const SelectLangButton = () => {
   const [selectedKeys, setSelectedKeys] = React.useState(
     new Set([LangType.en])
   );
+  const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");
-  const handleChangeLanguage = (lang: string) => {
+  const handleChangeLanguage = (lang: LangType) => {
+    dispatch(onChangeLanguage(lang));
     i18n.changeLanguage(lang);
   };
   return (

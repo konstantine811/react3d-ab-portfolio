@@ -5,6 +5,7 @@ import onChangeComponentSize from "@store/slices/changeComponentSize";
 import onChangeSectionScroll from "@store/slices/changeSectionScroll";
 import onChangeThreeScene from "@store/slices/changeThreeScene";
 import onBlogArticle from "@store/slices/blogArticleSlice";
+import onChangeLanguage from "@store/slices/changeLangeSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     onChangeSectionScroll,
     onChangeThreeScene,
     onBlogArticle,
+    onChangeLanguage,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
