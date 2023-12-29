@@ -1,23 +1,23 @@
 import { useTranslation } from "react-i18next";
 import { Fragment } from "react";
-import { DataFormat } from "@configs/common";
 import Moment from "react-moment";
-// server request helpers
-import { QueryBlogItems } from "@helpers/server-request";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Image,
-  Spinner,
 } from "@nextui-org/react";
-// helpers
-import { useNavigate } from "react-router-dom";
+// server request helpers
+import { QueryBlogItems } from "@helpers/server-request";
+// configs
+import { DataFormat } from "@configs/common";
+import Loader from "@components/Loader/Loader";
 
 const BlogPage = () => {
   const navigate = useNavigate();
-  const blogConfigItems = QueryBlogItems();
+  let blogConfigItems = QueryBlogItems();
   const [t] = useTranslation("global");
   return (
     <main className="flex flex-col gap-5 font-fira">
@@ -99,7 +99,7 @@ const BlogPage = () => {
           );
         })
       ) : (
-        <Spinner />
+        <Loader />
       )}
     </main>
   );

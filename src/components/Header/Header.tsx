@@ -19,15 +19,15 @@ import {
   NavbarMenuItem,
   Divider,
   Switch,
-  Button,
-  Tooltip,
 } from "@nextui-org/react";
-import { Box, LogInIcon, Moon, Sun } from "lucide-react";
+import { Box, Moon, Sun } from "lucide-react";
+// configs
+import { ROUTE_PATH_CONFIG } from "../../App";
 // components
 import NavBarNestedItem from "@components/Header/NavBarNestedItem";
 import NavMenuAccordionItem from "@components/Header/NavMenuAccordionItem";
-import { ROUTE_PATH_CONFIG } from "../../App";
 import SelectLangButton from "@components/Header/SelectLangButton";
+// models
 import { IRouterConfiguration } from "@models/navigation.model";
 
 // configs

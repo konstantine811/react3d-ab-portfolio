@@ -27,6 +27,8 @@
     }
   },
   "blog": {
+    "prev_article": "Prev article",
+    "next_article": "Next article",
     "svg": {
       "first-lesson": {
         "title": "What is <1>SVG</1>"

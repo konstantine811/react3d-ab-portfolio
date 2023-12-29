@@ -27,6 +27,8 @@
     }
   },
   "blog": {
+    "prev_article": "Попередня стаття",
+    "next_article": "Наступна стаття",
     "svg": {
       "first-lesson": {
         "title": "Що таке <1>SVG</1>"
