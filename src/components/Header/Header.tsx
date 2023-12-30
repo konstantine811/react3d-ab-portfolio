@@ -62,7 +62,12 @@ const Header: FC<HeaderProps> = () => {
 
   return (
     <>
-      <Navbar ref={refHeader} maxWidth="2xl" onMenuOpenChange={setIsMenuOpen}>
+      <Navbar
+        isMenuOpen={isMenuOpen}
+        ref={refHeader}
+        maxWidth="2xl"
+        onMenuOpenChange={setIsMenuOpen}
+      >
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden order-2"
@@ -138,6 +143,7 @@ const Header: FC<HeaderProps> = () => {
                   key={index}
                   pathname={pathname}
                   routerConfig={i}
+                  closeMenu={() => setIsMenuOpen(false)}
                 />
               );
             } else {
@@ -147,6 +153,7 @@ const Header: FC<HeaderProps> = () => {
                     color={pathname === i.path ? "primary" : "foreground"}
                     href={i.path}
                     className="w-full px-2 py-3"
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {t(i.title)}
                   </Link>

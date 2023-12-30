@@ -7,11 +7,13 @@ import { useTranslation } from "react-i18next";
 export interface NavMenuAccordionItemProps {
   pathname: string;
   routerConfig: IRouterConfiguration;
+  closeMenu: () => void;
 }
 
 const NavMenuAccordionItem: FC<NavMenuAccordionItemProps> = ({
   pathname,
   routerConfig,
+  closeMenu,
 }) => {
   const [t] = useTranslation("global");
   return (
@@ -45,6 +47,9 @@ const NavMenuAccordionItem: FC<NavMenuAccordionItemProps> = ({
                     href={i.path}
                     className="w-full pt-3 pb-1"
                     key={index}
+                    onClick={() => {
+                      closeMenu();
+                    }}
                   >
                     {" "}
                     {t(i.title)}
