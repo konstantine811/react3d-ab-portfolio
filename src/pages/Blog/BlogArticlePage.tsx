@@ -2,7 +2,7 @@ import { headerHeightState } from "@store/slices/changeComponentSize";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 // lib components
 import { Button, Image } from "@nextui-org/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -11,15 +11,20 @@ import { QueryBlogArcticle, QueryBlogItems } from "@helpers/server-request";
 // model
 import { IBlog } from "@models/blog.model";
 import { INotion } from "@models/server-response/notion.model";
+import { LangType } from "@models/lang.model";
 // components
-import AsideBar from "@components/AsideBar/AsideBar";
-import NotionHeadTitle from "@components/notion-parse/NotionHeadTitle";
-import NotionCode from "@components/notion-parse/NotionCode";
-import NotionText from "@components/notion-parse/NotionText";
-import NotionImage from "@components/notion-parse/NotionImage";
+import NotionHeadTitle from "@components/NotionParse/NotionHeadTitle";
+import NotionCode from "@components/NotionParse/NotionCode";
+import NotionText from "@components/NotionParse/NotionText";
+import NotionImage from "@components/NotionParse/NotionImage";
 import Loader from "@components/Loader/Loader";
+import AsideBar from "@components/AsideBar/AsideBar";
 // helpers
 import { getBlogPath } from "@helpers/blog";
+// storage
+import { currentLanguage } from "@store/slices/changeLanguageSlice";
+// config
+import { NOTION_URL, NavNamesPaths } from "@configs/navigation";
 
 function getPrevNextId(
   blogConfigItems: IBlog.MenuItems[],
@@ -48,15 +53,68 @@ function getPrevNextId(
   return { prevId, nextId };
 }
 
-const BlogArticlePage = () => {
-  const blogConfigItems = QueryBlogItems();
+function getCurrentLangId(
+  blogConfigItems: IBlog.MenuItems[],
+  id: string | undefined,
+  currentPageCoverUrl: string | null
+) {
+  let isCurrent = false;
+  let findedIdByCover = null;
+  if (id) {
+    blogConfigItems.forEach((i) => {
+      if (i.children && i.children.length) {
+        const findeded = i.children.find((iC) => iC.id === id);
+        const findededByCoverUrl = i.children.find(
+          (iC) => iC.format?.page_cover === currentPageCoverUrl
+        );
+        if (findeded) {
+          isCurrent = !!findeded;
+        }
+        if (findededByCoverUrl) {
+          findedIdByCover = findededByCoverUrl.id;
+        }
+      }
+    });
+  }
+
+  return { isCurrent, findedIdByCover };
+}
+
+const BlogArticlePage = memo(() => {
+  const [blogId, setBlogId] = useState<string>(NOTION_URL[LangType.en]);
+  const blogConfigItems = QueryBlogItems(blogId);
+  const [prevId, setPrevId] = useState<string | null>(null);
+  const [nextId, setNextId] = useState<string | null>(null);
+  const currentLang = useSelector(currentLanguage);
   const headerHeight = useSelector(headerHeightState);
   const { id } = useParams();
   const navigate = useNavigate();
   let blogArticle: IBlog.BlogArticle[] = [];
+  let currentPageCoverUrl: string | null = null;
   const [t] = useTranslation("global");
   // find prev and next index
-  const { prevId, nextId } = getPrevNextId(blogConfigItems, id);
+  useEffect(() => {
+    const { prevId, nextId } = getPrevNextId(blogConfigItems, id);
+    setPrevId(prevId);
+    setNextId(nextId);
+  }, [blogConfigItems, id, setPrevId, setNextId]);
+
+  useEffect(() => {
+    const { isCurrent, findedIdByCover } = getCurrentLangId(
+      blogConfigItems,
+      id,
+      currentPageCoverUrl
+    );
+    if (!isCurrent && findedIdByCover) {
+      navigate(getBlogPath(findedIdByCover));
+    } else {
+      navigate(NavNamesPaths.blog);
+    }
+  }, [blogConfigItems, id, currentPageCoverUrl, navigate]);
+
+  useEffect(() => {
+    setBlogId(NOTION_URL[currentLang]);
+  }, [currentLang]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
@@ -65,11 +123,17 @@ const BlogArticlePage = () => {
     const resBlogArticle = QueryBlogArcticle(id);
     if (resBlogArticle) {
       blogArticle = resBlogArticle;
+      blogArticle.forEach((i) => {
+        if (i.type === INotion.TypeContent.page && i.format) {
+          const data = i.format as IBlog.BlogCoverFormat;
+          currentPageCoverUrl = data.page_cover;
+        }
+      });
     }
   }
   return (
     <>
-      <AsideBar blogConfigItems={blogConfigItems}></AsideBar>
+      <AsideBar blogConfigItems={blogConfigItems} blogId={blogId} id={id} />
       <main className="flex flex-col gap-5 mb-10">
         {blogArticle &&
         blogArticle.length &&
@@ -177,6 +241,6 @@ const BlogArticlePage = () => {
       </main>
     </>
   );
-};
+});
 
 export default BlogArticlePage;

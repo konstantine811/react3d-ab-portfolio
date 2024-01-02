@@ -23,6 +23,7 @@ export const changeLangSlice = createSlice({
 
 export const { onChangeLanguage } = changeLangSlice.actions;
 
-export const changeLang = (state: RootState) => state.onChangeLanguage.lang;
+export const currentLanguage = (state: RootState) =>
+  state.onChangeLanguage.lang;
 
 export default changeLangSlice.reducer;

@@ -5,7 +5,7 @@ import onChangeComponentSize from "@store/slices/changeComponentSize";
 import onChangeSectionScroll from "@store/slices/changeSectionScroll";
 import onChangeThreeScene from "@store/slices/changeThreeScene";
 import onBlogArticle from "@store/slices/blogArticleSlice";
-import onChangeLanguage from "@store/slices/changeLangeSlice";
+import onChangeLanguage from "@store/slices/changeLanguageSlice";
 
 export const store = configureStore({
   reducer: {

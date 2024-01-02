@@ -9,19 +9,23 @@ import { IBlog } from "@models/blog.model";
 export enum BlogPostCacheNames {
   blogItems = "blogItems",
   blogNestedItems = "blogNestedItems",
+  blogArticle = "blogArticle",
 }
 
-async function fetchBlogItems<T>(id: string): Promise<T> {
+export async function fetchBlogItems<T>(id: string): Promise<T> {
   const { data } = await axios(`${NOTION_URL.baseUrl}/${id}`);
   return data as T;
 }
 
-export const QueryBlogItems = () => {
-  const { data } = useQuery({
-    queryKey: [BlogPostCacheNames.blogItems],
-    queryFn: () => fetchBlogItems<INotion.ContentEntity>(NOTION_URL.blogId),
-    select: (data) => handleNotionBlogItems(data, [NOTION_URL.blogId]),
+export const QueryBlogItems = (blogId: string) => {
+  const { data, error } = useQuery({
+    queryKey: [BlogPostCacheNames.blogItems, blogId],
+    queryFn: () => fetchBlogItems<INotion.ContentEntity>(blogId),
+    select: (data) => handleNotionBlogItems(data, [blogId]),
   });
+  if (!data && error) {
+    console.error(error);
+  }
   // Then get the blog nested itesm
   const blogNestedItems = useQueries({
     queries: data
@@ -32,10 +36,7 @@ export const QueryBlogItems = () => {
             select: (data: INotion.ContentEntity) => {
               return {
                 parentId: blogItem.id,
-                children: handleNotionBlogItems(data, [
-                  NOTION_URL.blogId,
-                  blogItem.id,
-                ]),
+                children: handleNotionBlogItems(data, [blogId, blogItem.id]),
               } as IBlog.BlogNestedItems;
             },
           };
@@ -47,7 +48,7 @@ export const QueryBlogItems = () => {
 
 export const QueryBlogArcticle = (id: string) => {
   const { data } = useQuery({
-    queryKey: [id],
+    queryKey: [BlogPostCacheNames.blogArticle, id],
     queryFn: () => fetchBlogItems<INotion.ContentEntity>(id),
     select: (data) => handleNotionBlogArticle(data, id),
   });
@@ -84,7 +85,7 @@ function removeStringDefise(str: string) {
   return str.split("-").join("");
 }
 
-function handleNotionBlogItems(
+export function handleNotionBlogItems(
   data: INotion.ContentEntity | undefined,
   ids: string[]
 ): IBlog.MenuItems[] | null {
@@ -95,6 +96,9 @@ function handleNotionBlogItems(
       if (!removedDefiseIds.includes(removeStringDefise(key))) {
         const { properties, id, format, created_time, last_edited_time } =
           val.value;
+        if (!properties) {
+          return null;
+        }
         return {
           title: (properties.title as string[]).join(" "),
           id: id,
@@ -108,7 +112,7 @@ function handleNotionBlogItems(
     .filter((i) => i) as IBlog.MenuItems[];
 }
 
-function handleNotionBlogArticle(
+export function handleNotionBlogArticle(
   data: INotion.ContentEntity | undefined,
   idTitle: string
 ): IBlog.BlogArticle[] | null {

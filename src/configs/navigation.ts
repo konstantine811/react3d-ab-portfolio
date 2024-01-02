@@ -1,5 +1,7 @@
 // components for config
 
+import { LangType } from "@models/lang.model";
+
 export enum NavNamesPaths {
   home = "/",
   threeFirstScene = "/three/first-scene",
@@ -11,5 +13,6 @@ export enum NavNamesPaths {
 
 export const NOTION_URL = {
   baseUrl: "https://notion-api.splitbee.io/v1/page",
-  blogId: "18d4ad81d95c4083b090a218ef8ac6e9",
+  [LangType.en]: "18d4ad81d95c4083b090a218ef8ac6e9",
+  [LangType.uk]: "6491d35c16f443d79190c790471100c2",
 };

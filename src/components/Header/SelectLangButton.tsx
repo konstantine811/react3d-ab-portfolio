@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 // models
 import { LangType } from "@models/lang.model";
 import { useDispatch } from "react-redux";
-import { onChangeLanguage } from "@store/slices/changeLangeSlice";
+import { onChangeLanguage } from "@store/slices/changeLanguageSlice";
 
 const SelectLangButton = () => {
   const [selectedKeys, setSelectedKeys] = React.useState(

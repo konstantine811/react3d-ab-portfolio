@@ -1,8 +1,9 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Variants, motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { ArrowBigLeft, Menu } from "lucide-react";
 import { FC, useState } from "react";
+import { QueryBlogItems } from "@helpers/server-request";
 // storage
 import { headerHeightState } from "@store/slices/changeComponentSize";
 // components
@@ -19,6 +20,8 @@ import {
 import { IBlog } from "@models/blog.model";
 // helpers
 import { getBlogPath } from "@helpers/blog";
+// store
+import { onChangeBlogMenuItems } from "@store/slices/blogArticleSlice";
 
 const variants: Variants = {
   open: { opacity: 1, x: 0 },
@@ -27,27 +30,29 @@ const variants: Variants = {
 
 export interface AsideBaProps {
   blogConfigItems: IBlog.MenuItems[];
+  blogId: string;
+  id: string | undefined;
 }
 
-const AsideBar: FC<AsideBaProps> = ({ blogConfigItems }) => {
+const AsideBar: FC<AsideBaProps> = ({ blogConfigItems, blogId, id }) => {
   const headerHeight = useSelector(headerHeightState);
   const [isOpen, setIsOpen] = useState(false);
-  const { pathname } = useLocation();
   function getCurrentOpenedId(blogConfigItems: IBlog.MenuItems[]) {
-    const opendItems: string[] = [];
+    const openedItems: string[] = [];
     blogConfigItems.forEach((i) => {
       if (i.children && i.children.length) {
-        const finded = i.children.find((iC) => getBlogPath(iC.id) === pathname);
+        const finded = i.children.find((iC) => iC.id === id);
         if (finded) {
-          opendItems.push(i.id);
+          openedItems.push(i.id);
         }
       }
     });
-    return opendItems;
+    return openedItems;
   }
 
   return (
     <motion.div
+      key={id + blogId}
       animate={isOpen ? "open" : "closed"}
       variants={variants}
       className="fixed  top-0 items-start  max-w-sm  w-full z-50 "
@@ -61,6 +66,7 @@ const AsideBar: FC<AsideBaProps> = ({ blogConfigItems }) => {
         <div className="px-3 border-b-1 border-t-1 border-r-1 rounded-r-lg bg-background border-gray-900 w-full absolute h-full overflow-y-auto top-0">
           {blogConfigItems && blogConfigItems.length ? (
             <Accordion
+              keepContentMounted={true}
               defaultExpandedKeys={getCurrentOpenedId(blogConfigItems)}
             >
               {blogConfigItems.map((item) => {
@@ -92,11 +98,7 @@ const AsideBar: FC<AsideBaProps> = ({ blogConfigItems }) => {
                               as={Link}
                               className="w-full justify-start mb-1"
                               href={getBlogPath(itemC.id)}
-                              color={
-                                pathname === getBlogPath(itemC.id)
-                                  ? "primary"
-                                  : "default"
-                              }
+                              color={id === itemC.id ? "primary" : "default"}
                               variant="flat"
                             >
                               {itemC.title}
