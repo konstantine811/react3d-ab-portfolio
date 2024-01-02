@@ -107,7 +107,7 @@ const BlogArticlePage = memo(() => {
     );
     if (!isCurrent && findedIdByCover) {
       navigate(getBlogPath(findedIdByCover));
-    } else {
+    } else if (!isCurrent && !findedIdByCover) {
       navigate(NavNamesPaths.blog);
     }
   }, [blogConfigItems, id, currentPageCoverUrl, navigate]);
