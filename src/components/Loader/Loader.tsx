@@ -9,7 +9,7 @@ const Loader = () => {
   return (
     <div
       style={{ minHeight: `calc(100vh - ${headerHeight}px)` }}
-      className="flex flex-col items-center justify-center min-h-screen py-10"
+      className="flex flex-col items-center justify-center min-h-screen py-10 px-5"
     >
       <div className="loader-txt pb-3">{t("loader-txt")}</div>
       <Progress

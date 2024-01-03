@@ -82,7 +82,7 @@ function getCurrentLangId(
 
 const BlogArticlePage = memo(() => {
   const [blogId, setBlogId] = useState<string>(NOTION_URL[LangType.en]);
-  const blogConfigItems = QueryBlogItems(blogId);
+  let blogConfigItems = QueryBlogItems(blogId);
   const [prevId, setPrevId] = useState<string | null>(null);
   const [nextId, setNextId] = useState<string | null>(null);
   const currentLang = useSelector(currentLanguage);
