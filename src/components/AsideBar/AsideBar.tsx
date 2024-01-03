@@ -1,9 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Variants, motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
 import { ArrowBigLeft, Menu } from "lucide-react";
 import { FC, useState } from "react";
-import { QueryBlogItems } from "@helpers/server-request";
 // storage
 import { headerHeightState } from "@store/slices/changeComponentSize";
 // components
@@ -20,8 +18,6 @@ import {
 import { IBlog } from "@models/blog.model";
 // helpers
 import { getBlogPath } from "@helpers/blog";
-// store
-import { onChangeBlogMenuItems } from "@store/slices/blogArticleSlice";
 
 const variants: Variants = {
   open: { opacity: 1, x: 0 },

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Wrath of the Dragon
+* source:	https://sketchfab.com/3d-models/wrath-of-the-dragon-bda2c373806747a28812c9d88bf55dfa
+* author:	Fabian Orrego (https://sketchfab.com/fabian_orrego)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Wrath of the Dragon" (https://sketchfab.com/3d-models/wrath-of-the-dragon-bda2c373806747a28812c9d88bf55dfa) by Fabian Orrego (https://sketchfab.com/fabian_orrego) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

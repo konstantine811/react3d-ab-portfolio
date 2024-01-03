@@ -1,13 +1,13 @@
 // components
 import TextSplitAnimation from "@components/TextAnimation/TextSplitAnimation";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { memo } from "react";
 // components
 import MapSection from "@components/HomeSection/MapSection/MapSection";
-import TabAnchor from "@components/HomeSection/TabAnchor/TabAnchor";
-import { useSelector } from "react-redux";
+// storage
 import { headerHeightState } from "@store/slices/changeComponentSize";
-import { memo } from "react";
-import SectionObserveInView from "@components/SectionObserveInView/SectionObserveInView";
+// model
 import { SectionIds } from "@models/pageSection.model";
 
 const HomePage = memo(() => {
@@ -58,7 +58,7 @@ const HomePage = memo(() => {
           {t("home.intro.about-text")}
         </TextSplitAnimation>
       </div>
-      <MapSection id={SectionIds.skills} />
+      <MapSection />
       {/* <TabAnchor /> */}
     </>
   );

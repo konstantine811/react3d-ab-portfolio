@@ -1,7 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useSelector } from "react-redux";
+// storage
+import { headerHeightState } from "@store/slices/changeComponentSize";
 // components
 import Map from "@components/Map/Map";
+import TextAboutSection from "@components/HomeSection/TextAboutSection/TextAboutSection";
+import { HomeChapters } from "@components/Map/Map";
 
 interface IMapSection {
   id?: string;
@@ -9,36 +14,49 @@ interface IMapSection {
 
 const MapSection = ({ id }: IMapSection) => {
   const mapWrapRef = useRef<HTMLDivElement>(null);
+  const headerHeight = useSelector(headerHeightState);
+  const [isChapterView, setIsChapterView] = useState<HomeChapters>();
   const { scrollYProgress } = useScroll({
     target: mapWrapRef,
     offset: ["end end", "start end"],
   });
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.3]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.9]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
+  function getMinFullScreen() {
+    return `calc(100vh - ${headerHeight}px)`;
+  }
   return (
     <>
       <div className="container pt-10">
-        <div className="grid grid-cols-6 gap-10 items-center">
+        <div className="grid grid-cols-6 gap-10">
           <motion.div
-            style={{ scale, opacity }}
+            style={{ scale, opacity, top: `${headerHeight + 10}px` }}
             ref={mapWrapRef}
-            className="lg:col-span-4 col-span-6 overflow-hidden  rounded-lg"
+            className="lg:col-span-4 col-span-6 overflow-hidden  rounded-lg sticky"
           >
-            <Map className="w-full md:h-[800px] h-96 m-auto" />
+            <Map
+              isChapterView={isChapterView}
+              className="w-full lg:h-[calc(100vh_-_136px)] h-96 m-auto"
+            />
           </motion.div>
-          <p className="text-md foreground lg:col-span-2 col-span-6 max-w-sm text-right">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi saepe
-            delectus, assumenda vel dolorem culpa maiores officia blanditiis.
-            Cupiditate a maxime error dolore necessitatibus iste fuga impedit
-            perspiciatis velit cumque. Modi quisquam voluptas quos porro, quo
-            laudantium a autem quae expedita maiores architecto ipsum tenetur
-            natus explicabo, <span id={id}>voluptatibus fugiat</span> laboriosam
-            corporis voluptatum aut. Saepe, eos? Ipsa dicta nostrum ducimus
-            placeat. Consequatur quam minus debitis nam nostrum voluptatibus,
-            nihil vitae, error fugit architecto ut, eos ipsam veniam. Vitae
-            quisquam, id ad officiis exercitationem a atque qui eius repudiandae
-            dolorem excepturi ducimus.
-          </p>
+          <div
+            style={{ minHeight: getMinFullScreen() }}
+            className="lg:col-span-2 col-span-6 flex items-center"
+          >
+            <TextAboutSection
+              onChapterView={(chapter) => setIsChapterView(chapter)}
+              id={HomeChapters.vasilivka}
+            />
+          </div>
+          <div
+            style={{ minHeight: getMinFullScreen() }}
+            className="lg:col-start-5 lg:col-span-2 col-span-6"
+          >
+            <TextAboutSection
+              onChapterView={(chapter) => setIsChapterView(chapter)}
+              id={HomeChapters.zp}
+            />
+          </div>
         </div>
       </div>
     </>

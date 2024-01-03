@@ -56,6 +56,7 @@
     "split-type": "^0.3.4",
     "tailwind-merge": "^2.0.0",
     "three": "^0.158.0",
+    "threebox-plugin": "^2.2.7",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
