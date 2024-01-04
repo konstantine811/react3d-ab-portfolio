@@ -76,7 +76,7 @@ const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
         className={currentTagClass.className}
         id={removeStringDefise(id)}
       >
-        {data?.title?.map((i) => {
+        {data?.title?.map((i, index) => {
           const [text, styleArr] = i;
           let objClasses: string[] = [];
           let link = "#";
@@ -107,7 +107,7 @@ const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
           }
 
           return (
-            <span className={objClasses.join(" ")} key={text}>
+            <span className={objClasses.join(" ")} key={index}>
               {(() => {
                 switch (componentName) {
                   case isComponentName.h:

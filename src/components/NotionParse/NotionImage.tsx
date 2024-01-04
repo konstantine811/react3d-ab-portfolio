@@ -18,7 +18,7 @@ const NotionImage: FC<INotionImageProperties> = ({ data, format }) => {
           className="object-cover"
           width={format.block_width}
           height={format.block_height}
-          alt={data.title[0]}
+          alt={data.title ? data.title[0] : "image"}
           src={format.display_source}
         />
 
