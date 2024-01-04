@@ -31,6 +31,7 @@ import { getBlogPath } from "@helpers/blog";
 import { currentLanguage } from "@store/slices/changeLanguageSlice";
 // config
 import { NOTION_URL } from "@configs/navigation";
+import NotionEmbed from "@components/NotionParse/NotionEmbed";
 
 function getPrevNextId(
   blogConfigItems: IBlog.MenuItems[],
@@ -142,6 +143,7 @@ const BlogArticlePage = memo(() => {
           currentPageCoverUrl = data.page_cover;
         }
       });
+      console.log(blogArticle);
     }
   }
   return (
@@ -216,6 +218,14 @@ const BlogArticlePage = memo(() => {
                             item.properties as INotion.ContentImageProperties
                           }
                           format={item.format as IBlog.BlogImageFormat}
+                        />
+                      </div>
+                    );
+                  case INotion.TypeContent.embed:
+                    return (
+                      <div className="my-2" key={item.id}>
+                        <NotionEmbed
+                          format={item.format as IBlog.BlogEmbedFormat}
                         />
                       </div>
                     );

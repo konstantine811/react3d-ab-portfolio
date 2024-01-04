@@ -20,6 +20,7 @@ export namespace INotion {
     header = "header",
     quote = "quote",
     bulleted_list = "bulleted_list",
+    embed = "embed",
   }
 
   export interface ContentPageProperties {
@@ -36,6 +37,11 @@ export namespace INotion {
   export interface ContentCodeProperties {
     title: string[];
     language: string[];
+  }
+
+  export interface ContentEmbedProperties {
+    source: string[];
+    title: string[];
   }
 
   export interface ContentTextProperties {
@@ -59,7 +65,8 @@ export namespace INotion {
       | ContentPageProperties
       | ContentImageProperties
       | ContentCodeProperties
-      | ContentTextProperties;
+      | ContentTextProperties
+      | ContentEmbedProperties;
     space_id: string;
     type: TypeContent;
     version: number;

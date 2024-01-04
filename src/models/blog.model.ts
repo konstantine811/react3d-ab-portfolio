@@ -32,6 +32,15 @@ export namespace IBlog {
     display_source: string;
   }
 
+  export interface BlogEmbedFormat {
+    block_full_width: boolean;
+    block_height: number;
+    block_page_width: boolean;
+    block_preserve_scale: boolean;
+    block_width: number;
+    display_source: string;
+  }
+
   export interface BlogArticle {
     type: INotion.TypeContent;
     properties:
@@ -39,7 +48,7 @@ export namespace IBlog {
       | INotion.ContentImageProperties
       | INotion.ContentCodeProperties
       | INotion.ContentTextProperties;
-    format?: BlogCoverFormat | BlogImageFormat;
+    format?: BlogCoverFormat | BlogImageFormat | BlogEmbedFormat;
     id: string;
   }
 }
