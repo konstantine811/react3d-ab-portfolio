@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { RefObject, memo, useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 // lib components
-import { Button, Image } from "@nextui-org/react";
+import { Button, Divider, Image } from "@nextui-org/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 // server request helpers
 import { QueryBlogArcticle, QueryBlogItems } from "@helpers/server-request";
@@ -200,6 +200,7 @@ const BlogArticlePage = memo(() => {
                               item.properties as INotion.ContentTextProperties
                             }
                             type={item.type}
+                            id={item.id}
                           />
                         ) : null}
                       </div>
@@ -222,6 +223,13 @@ const BlogArticlePage = memo(() => {
                           format={item.format as IBlog.BlogEmbedFormat}
                         />
                       </div>
+                    );
+                  case INotion.TypeContent.divider:
+                    return (
+                      <Divider
+                        className="h-px mt-3 mb-20 w-full space-x-4"
+                        orientation="vertical"
+                      />
                     );
                   default:
                     return null;

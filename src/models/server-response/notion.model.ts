@@ -21,6 +21,7 @@ export namespace INotion {
     quote = "quote",
     bulleted_list = "bulleted_list",
     embed = "embed",
+    divider = "divider",
   }
 
   export interface ContentPageProperties {

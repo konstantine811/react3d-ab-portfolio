@@ -81,7 +81,7 @@ function handleBlogNestedItems(
     .filter((i) => i) as IBlog.MenuItems[];
 }
 
-function removeStringDefise(str: string) {
+export function removeStringDefise(str: string) {
   return str.split("-").join("");
 }
 

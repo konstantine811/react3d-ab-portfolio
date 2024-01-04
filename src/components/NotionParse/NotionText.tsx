@@ -1,4 +1,5 @@
 import TextWrapper from "@components/TextWrapper/TextWrapper";
+import { removeStringDefise } from "@helpers/server-request";
 import { INotion } from "@models/server-response/notion.model";
 import { Chip, Link } from "@nextui-org/react";
 import { FC, ElementType } from "react";
@@ -6,6 +7,7 @@ import { FC, ElementType } from "react";
 export interface INotionTextProperties {
   data: INotion.ContentTextProperties;
   type: INotion.TypeContent;
+  id: string;
 }
 
 export type INotionClassProps = { [key: string]: any };
@@ -14,6 +16,7 @@ export const isComponentName: INotionClassProps = {
   h: "Chip",
   a: "Link",
   bullet: "BulletChip",
+  bulletLocalLink: "BulletLocalLink",
 };
 
 export const NotionTypeClassToTailwind: INotionClassProps = {
@@ -21,6 +24,7 @@ export const NotionTypeClassToTailwind: INotionClassProps = {
   h: isComponentName.h,
   a: isComponentName.a,
   bullet: isComponentName.bullet,
+  bulletLocalLink: isComponentName.bulletLocalLink,
 };
 
 export interface ITagClass {
@@ -28,7 +32,7 @@ export interface ITagClass {
   className?: string;
 }
 
-const NotionText: FC<INotionTextProperties> = ({ data, type }) => {
+const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
   const currentTagClass = getCurrentTagClass();
   function getCurrentTagClass(): ITagClass {
     switch (type) {
@@ -70,10 +74,12 @@ const NotionText: FC<INotionTextProperties> = ({ data, type }) => {
       <TextWrapper
         as={currentTagClass.as}
         className={currentTagClass.className}
+        id={removeStringDefise(id)}
       >
         {data?.title?.map((i) => {
           const [text, styleArr] = i;
           let objClasses: string[] = [];
+          let link = "#";
           let componentName;
           if (styleArr && styleArr.length) {
             styleArr.forEach((iStyle: string[]) => {
@@ -81,17 +87,24 @@ const NotionText: FC<INotionTextProperties> = ({ data, type }) => {
               const propName = NotionTypeClassToTailwind[prop];
               if (propName !== isComponentName[prop]) {
                 objClasses.push(propName);
+              } else if (
+                type === INotion.TypeContent.bulleted_list &&
+                propName === NotionTypeClassToTailwind.a &&
+                iStyle[1].includes("#")
+              ) {
+                componentName = NotionTypeClassToTailwind.bulletLocalLink;
+                link += iStyle[1].split(link)[1];
               } else {
                 componentName = propName;
               }
             });
           }
-          switch (type) {
+          /*  switch (type) {
             case INotion.TypeContent.bulleted_list:
               componentName = NotionTypeClassToTailwind.bullet;
               break;
             default:
-          }
+          } */
           return (
             <span className={objClasses.join(" ")} key={text}>
               {(() => {
@@ -103,6 +116,18 @@ const NotionText: FC<INotionTextProperties> = ({ data, type }) => {
                       <Link href={text} target="_blank">
                         {text}
                       </Link>
+                    );
+                  case isComponentName.bulletLocalLink:
+                    return (
+                      <a href={link}>
+                        <Chip
+                          className="text-lg p-5"
+                          color="warning"
+                          variant="dot"
+                        >
+                          {text}
+                        </Chip>
+                      </a>
                     );
                   case isComponentName.bullet:
                     return (
