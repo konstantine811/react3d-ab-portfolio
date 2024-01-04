@@ -3,14 +3,9 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { RefObject, memo, useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 // lib components
-import { Button, Image, Progress } from "@nextui-org/react";
+import { Button, Image } from "@nextui-org/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 // server request helpers
 import { QueryBlogArcticle, QueryBlogItems } from "@helpers/server-request";

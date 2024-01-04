@@ -1,5 +1,4 @@
 import { IBlog } from "@models/blog.model";
-import { INotion } from "@models/server-response/notion.model";
 
 export interface INotionEmbedProperties {
   format: IBlog.BlogEmbedFormat;
