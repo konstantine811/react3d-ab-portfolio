@@ -11,10 +11,11 @@ import { useTranslation } from "react-i18next";
 import { LangType } from "@models/lang.model";
 import { useDispatch } from "react-redux";
 import { onChangeLanguage } from "@store/slices/changeLanguageSlice";
-
+// helpers
+import { getBrowserLanguage } from "@helpers/lange";
 const SelectLangButton = () => {
   const [selectedKeys, setSelectedKeys] = React.useState(
-    new Set([LangType.en])
+    new Set([getBrowserLanguage()])
   );
   const dispatch = useDispatch();
   const [t, i18n] = useTranslation("global");

@@ -16,15 +16,15 @@ import { store } from "@store/slices/index.store";
 // translations
 import global_en from "@translations/en/global.json";
 import global_uk from "@translations/uk/global.json";
-// models
-import { LangType } from "@models/lang.model";
+// helpers
+import { getBrowserLanguage } from "@helpers/lange";
 
 i18next
   .use(LanguageDetector)
   // pass the i18n instance to react-i18next.
   .init({
     interpolation: { escapeValue: false },
-    lng: LangType.en,
+    lng: getBrowserLanguage(),
     resources: {
       en: {
         global: global_en,
