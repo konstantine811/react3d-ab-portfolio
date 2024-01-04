@@ -49,8 +49,8 @@ const NotionText: FC<INotionTextProperties> = ({ data, type }) => {
         };
       case INotion.TypeContent.bulleted_list:
         return {
-          as: "li",
-          className: "text-lg list-disc mt-3",
+          as: "div",
+          className: "text-lg mt-1",
         };
       case INotion.TypeContent.quote:
         return {
