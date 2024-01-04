@@ -138,7 +138,6 @@ const BlogArticlePage = memo(() => {
           currentPageCoverUrl = data.page_cover;
         }
       });
-      console.log(blogArticle);
     }
   }
   return (
