@@ -97,14 +97,15 @@ const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
               } else {
                 componentName = propName;
               }
+              if (
+                type === INotion.TypeContent.bulleted_list &&
+                propName !== NotionTypeClassToTailwind.a
+              ) {
+                componentName = NotionTypeClassToTailwind.bullet;
+              }
             });
           }
-          /*  switch (type) {
-            case INotion.TypeContent.bulleted_list:
-              componentName = NotionTypeClassToTailwind.bullet;
-              break;
-            default:
-          } */
+
           return (
             <span className={objClasses.join(" ")} key={text}>
               {(() => {
@@ -121,7 +122,7 @@ const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
                     return (
                       <a href={link}>
                         <Chip
-                          className="text-lg p-5"
+                          className="text-lg p-5 transition hover:bg-foreground hover:text-background"
                           color="warning"
                           variant="dot"
                         >
