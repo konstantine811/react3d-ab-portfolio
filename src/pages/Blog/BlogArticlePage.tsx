@@ -2,9 +2,15 @@ import { headerHeightState } from "@store/slices/changeComponentSize";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { memo, useEffect, useState } from "react";
+import { RefObject, memo, useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 // lib components
-import { Button, Image } from "@nextui-org/react";
+import { Button, Image, Progress } from "@nextui-org/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 // server request helpers
 import { QueryBlogArcticle, QueryBlogItems } from "@helpers/server-request";
@@ -24,7 +30,7 @@ import { getBlogPath } from "@helpers/blog";
 // storage
 import { currentLanguage } from "@store/slices/changeLanguageSlice";
 // config
-import { NOTION_URL, NavNamesPaths } from "@configs/navigation";
+import { NOTION_URL } from "@configs/navigation";
 
 function getPrevNextId(
   blogConfigItems: IBlog.MenuItems[],
@@ -81,6 +87,14 @@ function getCurrentLangId(
 }
 
 const BlogArticlePage = memo(() => {
+  const refArticle = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: refArticle as RefObject<HTMLElement>,
+    offset: ["end end", "start start"],
+  });
+
+  const distance = useTransform(scrollYProgress, [0, 1], [1, 0]);
+
   const [blogId, setBlogId] = useState<string>(NOTION_URL[LangType.en]);
   let blogConfigItems = QueryBlogItems(blogId);
   const [prevId, setPrevId] = useState<string | null>(null);
@@ -92,6 +106,7 @@ const BlogArticlePage = memo(() => {
   let blogArticle: IBlog.BlogArticle[] = [];
   let currentPageCoverUrl: string | null = null;
   const [t] = useTranslation("global");
+
   // find prev and next index
   useEffect(() => {
     const { prevId, nextId } = getPrevNextId(blogConfigItems, id);
@@ -131,8 +146,13 @@ const BlogArticlePage = memo(() => {
   }
   return (
     <>
+      <motion.div
+        className="w-full fixed top-[60px] z-[50] h-1 rounded-lg bg-gradient-to-r from-indigo-500 to-foreground/25 origin-left"
+        style={{ scaleX: distance, top: `${headerHeight}px` }}
+      />
+
       <AsideBar blogConfigItems={blogConfigItems} blogId={blogId} id={id} />
-      <main className="flex flex-col gap-5 mb-10">
+      <main className="flex flex-col gap-5 mb-10 progress-bar" ref={refArticle}>
         {blogArticle &&
         blogArticle.length &&
         blogArticle[0].format &&
@@ -175,8 +195,9 @@ const BlogArticlePage = memo(() => {
                   case INotion.TypeContent.sub_header:
                   case INotion.TypeContent.sub_sub_header:
                   case INotion.TypeContent.quote:
+                  case INotion.TypeContent.bulleted_list:
                     return (
-                      <div key={item.id} className="mt-6">
+                      <div key={item.id}>
                         {item.properties ? (
                           <NotionText
                             data={

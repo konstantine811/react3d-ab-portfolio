@@ -19,6 +19,7 @@ export namespace INotion {
     sub_header = "sub_header",
     header = "header",
     quote = "quote",
+    bulleted_list = "bulleted_list",
   }
 
   export interface ContentPageProperties {

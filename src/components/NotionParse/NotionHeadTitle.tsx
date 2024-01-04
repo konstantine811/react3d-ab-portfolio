@@ -24,11 +24,11 @@ const NotionHeadTitle: FC<INotionHeadTitleProperties> = ({
       <TextSplitAnimation
         as="h1"
         id={id}
-        className="text-6xl text-center foreground uppercase overflow-hidden"
+        className="sm:text-6xl text-3xl text-center foreground uppercase overflow-hidden"
         duration={0.91}
         letterStaggerTime={0.09}
       >
-        {data.title.join(" ")}
+        {data.title[0][0].toString()}
       </TextSplitAnimation>
     </div>
   );

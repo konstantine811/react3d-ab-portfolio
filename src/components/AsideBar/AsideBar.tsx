@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Variants, motion } from "framer-motion";
 import { ArrowBigLeft, Menu } from "lucide-react";
 import { FC, useState } from "react";
+import { isMobile } from "react-device-detect";
 // storage
 import { headerHeightState } from "@store/slices/changeComponentSize";
 // components
@@ -90,6 +91,11 @@ const AsideBar: FC<AsideBaProps> = ({ blogConfigItems, blogId, id }) => {
                         return (
                           <div key={itemC.id}>
                             <Button
+                              onClick={() => {
+                                if (isMobile) {
+                                  setIsOpen(false);
+                                }
+                              }}
                               key={itemC.id}
                               as={Link}
                               className="w-full justify-start mb-1"

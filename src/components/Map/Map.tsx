@@ -84,10 +84,10 @@ export default function Map({ className, isChapterView }: IMapProps) {
             tb.loadObj(options, (model: any) => {
               console.log("on add model", model);
               model.setCoords([35.27840968748217, 47.447331944920194]);
-              model.setRotation({ x: 0, y: 0, z: 250 });
-              if (tb) {
-                tb.add(model);
-              }
+              model.setRotation({ x: 0, y: 0, z: 150 });
+              model.setTranslate({ x: 1, y: 0, z: 0 });
+              console.log("model", model);
+              tb.add(model);
             });
           },
 

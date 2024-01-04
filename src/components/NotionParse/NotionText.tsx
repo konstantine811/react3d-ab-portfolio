@@ -13,12 +13,14 @@ export type INotionClassProps = { [key: string]: any };
 export const isComponentName: INotionClassProps = {
   h: "Chip",
   a: "Link",
+  bullet: "BulletChip",
 };
 
 export const NotionTypeClassToTailwind: INotionClassProps = {
   b: "font-bold",
   h: isComponentName.h,
   a: isComponentName.a,
+  bullet: isComponentName.bullet,
 };
 
 export interface ITagClass {
@@ -33,28 +35,33 @@ const NotionText: FC<INotionTextProperties> = ({ data, type }) => {
       case INotion.TypeContent.header:
         return {
           as: "h2",
-          className: "text-4xl bold",
+          className: "text-4xl bold mt-6",
         };
       case INotion.TypeContent.sub_header:
         return {
           as: "h3",
-          className: "text-2xl bold",
+          className: "text-2xl bold mt-6",
         };
       case INotion.TypeContent.sub_sub_header:
         return {
           as: "h4",
-          className: "text-xl bold",
+          className: "text-xl bold mt-6",
+        };
+      case INotion.TypeContent.bulleted_list:
+        return {
+          as: "li",
+          className: "text-lg list-disc mt-3",
         };
       case INotion.TypeContent.quote:
         return {
           as: "span",
           className:
-            "text-lg inline-block px-4 shadow-lg bg-primary rounded-lg text-white mb-1",
+            "text-lg inline-block px-4 shadow-lg bg-primary rounded-lg text-white mb-1 mt-6",
         };
       default:
         return {
           as: "div",
-          className: "text-lg",
+          className: "text-lg mt-6",
         };
     }
   }
@@ -79,6 +86,12 @@ const NotionText: FC<INotionTextProperties> = ({ data, type }) => {
               }
             });
           }
+          switch (type) {
+            case INotion.TypeContent.bulleted_list:
+              componentName = NotionTypeClassToTailwind.bullet;
+              break;
+            default:
+          }
           return (
             <span className={objClasses.join(" ")} key={text}>
               {(() => {
@@ -90,6 +103,16 @@ const NotionText: FC<INotionTextProperties> = ({ data, type }) => {
                       <Link href={text} target="_blank">
                         {text}
                       </Link>
+                    );
+                  case isComponentName.bullet:
+                    return (
+                      <Chip
+                        className="text-lg p-5"
+                        color="warning"
+                        variant="dot"
+                      >
+                        {text}
+                      </Chip>
                     );
                   default:
                     return <span>{text}</span>;
