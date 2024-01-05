@@ -14,6 +14,7 @@ export type INotionClassProps = { [key: string]: any };
 
 export const isComponentName: INotionClassProps = {
   h: "Chip",
+  c: "Chip",
   a: "Link",
   bullet: "BulletChip",
   bulletLocalLink: "BulletLocalLink",
@@ -23,6 +24,7 @@ export const NotionTypeClassToTailwind: INotionClassProps = {
   b: "font-bold",
   h: isComponentName.h,
   a: isComponentName.a,
+  c: isComponentName.c,
   bullet: isComponentName.bullet,
   bulletLocalLink: isComponentName.bulletLocalLink,
 };
@@ -105,12 +107,16 @@ const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
               }
             });
           }
+          if (text === " ") {
+            return null;
+          }
 
           return (
             <span className={objClasses.join(" ")} key={index}>
               {(() => {
                 switch (componentName) {
                   case isComponentName.h:
+                  case isComponentName.c:
                     return <Chip>{text}</Chip>;
                   case isComponentName.a:
                     return (
