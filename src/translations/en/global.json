@@ -28,6 +28,7 @@
     }
   },
   "blog": {
+    "all_sections": "All sections",
     "prev_article": "Prev article",
     "next_article": "Next article",
     "svg": {

@@ -12,16 +12,26 @@ export enum BlogPostCacheNames {
   blogArticle = "blogArticle",
 }
 
+export enum FilterName {
+  all = "all",
+}
+
+const staleTime = 60 * 60 * 1000;
+
 export async function fetchBlogItems<T>(id: string): Promise<T> {
   const { data } = await axios(`${NOTION_URL.baseUrl}/${id}`);
   return data as T;
 }
 
-export const QueryBlogItems = (blogId: string) => {
+export const QueryBlogItems = (
+  blogId: string,
+  filterName: string = FilterName.all
+) => {
   const { data, error } = useQuery({
     queryKey: [BlogPostCacheNames.blogItems, blogId],
     queryFn: () => fetchBlogItems<INotion.ContentEntity>(blogId),
     select: (data) => handleNotionBlogItems(data, [blogId]),
+    staleTime,
   });
   if (!data && error) {
     console.error(error);
@@ -29,18 +39,32 @@ export const QueryBlogItems = (blogId: string) => {
   // Then get the blog nested itesm
   const blogNestedItems = useQueries({
     queries: data
-      ? data.map((blogItem) => {
-          return {
-            queryKey: [BlogPostCacheNames.blogNestedItems, blogItem.id],
-            queryFn: () => fetchBlogItems<INotion.ContentEntity>(blogItem.id),
-            select: (data: INotion.ContentEntity) => {
-              return {
-                parentId: blogItem.id,
-                children: handleNotionBlogItems(data, [blogId, blogItem.id]),
-              } as IBlog.BlogNestedItems;
-            },
-          };
-        })
+      ? data
+          .filter((i) => {
+            if (filterName === FilterName.all) {
+              return i;
+            } else if (i.title === filterName) {
+              return i;
+            }
+            return false;
+          })
+          .map((blogItem) => {
+            return {
+              queryKey: [
+                BlogPostCacheNames.blogNestedItems,
+                blogItem.id,
+                filterName,
+              ],
+              queryFn: () => fetchBlogItems<INotion.ContentEntity>(blogItem.id),
+              select: (data: INotion.ContentEntity) => {
+                return {
+                  parentId: blogItem.id,
+                  children: handleNotionBlogItems(data, [blogId, blogItem.id]),
+                } as IBlog.BlogNestedItems;
+              },
+              staleTime,
+            };
+          })
       : [], // if blog items is undefined, an empty array will be returned
   });
   return handleBlogNestedItems(blogNestedItems, data);
@@ -51,6 +75,7 @@ export const QueryBlogArcticle = (id: string) => {
     queryKey: [BlogPostCacheNames.blogArticle, id],
     queryFn: () => fetchBlogItems<INotion.ContentEntity>(id),
     select: (data) => handleNotionBlogArticle(data, id),
+    staleTime,
   });
   return data;
 };
