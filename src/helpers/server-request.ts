@@ -75,7 +75,6 @@ export const QueryBlogArcticle = (id: string) => {
     queryKey: [BlogPostCacheNames.blogArticle, id],
     queryFn: () => fetchBlogItems<INotion.ContentEntity>(id),
     select: (data) => handleNotionBlogArticle(data, id),
-    staleTime,
   });
   return data;
 };
@@ -125,7 +124,7 @@ export function handleNotionBlogItems(
           return null;
         }
         return {
-          title: (properties.title as string[]).join(" "),
+          title: properties.title[0][0],
           id: id,
           format: format,
           created_time: created_time,

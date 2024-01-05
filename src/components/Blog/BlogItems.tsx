@@ -41,6 +41,7 @@ const BlogItems: FC<IBlogItemsProps> = ({ blogId }) => {
               color="primary"
               variant="bordered"
               aria-label="Tabs blog config"
+              classNames={{ tabList: "flex-wrap", tab: "w-auto" }}
               defaultSelectedKey={t("blog.all_sections")}
               onSelectionChange={(e) => {
                 if (e === t("blog.all_sections")) {
@@ -76,18 +77,17 @@ const BlogItems: FC<IBlogItemsProps> = ({ blogId }) => {
         blogSelectedItems.map((blogItem) => {
           return (
             <Fragment key={blogItem.id}>
-              <Card className="h-[250px] mb-3">
-                <div className="container max-w-screen-lg">
-                  <CardHeader className="absolute z-10 top-1 flex-col !items-start">
+              <Card className="min-h-[350px] mb-3">
+                <div className="container max-w-screen-lg w-full relative">
+                  <CardHeader className="relative z-10 top-1 flex-col !items-start">
                     <h1 className="text-[6vw] text-center text-white">
                       {blogItem.title}
                     </h1>
                   </CardHeader>
                 </div>
-                <Image
-                  removeWrapper
+                <img
                   alt="Card background"
-                  className="z-0 w-full h-full object-cover"
+                  className="z-0 w-full h-full object-cover absolute"
                   src={blogItem.format?.page_cover}
                 />
               </Card>
