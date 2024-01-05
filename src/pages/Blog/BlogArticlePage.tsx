@@ -2,8 +2,8 @@ import { headerHeightState } from "@store/slices/changeComponentSize";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Fragment, RefObject, memo, useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { Fragment, memo, useEffect, useRef, useState } from "react";
+import { motion, useScroll } from "framer-motion";
 // lib components
 import { Button, Divider, Image } from "@nextui-org/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -84,12 +84,7 @@ function getCurrentLangId(
 
 const BlogArticlePage = memo(() => {
   const refArticle = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: refArticle as RefObject<HTMLElement>,
-    offset: ["end end", "start start"],
-  });
-
-  const distance = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  const { scrollYProgress } = useScroll();
 
   const [blogId, setBlogId] = useState<string>(NOTION_URL[LangType.en]);
   let blogConfigItems = QueryBlogItems(blogId);
@@ -144,7 +139,7 @@ const BlogArticlePage = memo(() => {
     <Fragment key={id}>
       <motion.div
         className="w-full fixed top-[60px] z-[50] h-1 rounded-lg bg-gradient-to-r from-indigo-500 to-foreground/25 origin-left"
-        style={{ scaleX: distance, top: `${headerHeight}px` }}
+        style={{ scaleX: scrollYProgress, top: `${headerHeight}px` }}
       />
 
       <AsideBar blogConfigItems={blogConfigItems} blogId={blogId} id={id} />
