@@ -21,6 +21,7 @@ import { IBlog } from "@models/blog.model";
 import { getBlogPath } from "@helpers/blog";
 
 const variants: Variants = {
+  initial: { opacity: 1, x: 0 },
   open: { opacity: 1, x: 0 },
   closed: { opacity: 1, x: "-100%" },
 };
