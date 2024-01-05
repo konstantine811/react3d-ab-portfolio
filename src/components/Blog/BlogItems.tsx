@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { FC, Fragment, useState } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useNavigate } from "react-router-dom";
 import {
@@ -26,6 +26,9 @@ const BlogItems: FC<IBlogItemsProps> = ({ blogId }) => {
   const navigate = useNavigate();
   const [t] = useTranslation("global");
   const [filterBlog, setFilterBlog] = useState<string>(FilterName.all);
+  useEffect(() => {
+    setFilterBlog(FilterName.all);
+  }, [blogId]);
   const blogSelectedItems = QueryBlogItems(blogId, filterBlog);
   const blogConfigItems = QueryBlogItems(blogId);
   return (
