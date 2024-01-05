@@ -14,7 +14,7 @@ const BlogPage = () => {
     setBlogId(NOTION_URL[currentLang]);
   }, [currentLang]);
   return (
-    <main className="flex flex-col gap-5 font-fira">
+    <main className="flex flex-col gap-5 font-fira mb-10">
       <BlogItems blogId={blogId} />
     </main>
   );
