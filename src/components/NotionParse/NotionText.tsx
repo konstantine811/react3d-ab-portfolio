@@ -82,6 +82,7 @@ const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
           const [text, styleArr] = i;
           let objClasses: string[] = [];
           let link = "#";
+          let absoluteLink = "";
           let componentName;
           if (styleArr && styleArr.length) {
             styleArr.forEach((iStyle: string[]) => {
@@ -98,6 +99,9 @@ const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
                 link += iStyle[1].split(link)[1];
               } else {
                 componentName = propName;
+              }
+              if (propName === isComponentName.a) {
+                absoluteLink = iStyle[1];
               }
               if (
                 type === INotion.TypeContent.bulleted_list &&
@@ -120,7 +124,7 @@ const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
                     return <Chip>{text}</Chip>;
                   case isComponentName.a:
                     return (
-                      <Link href={text} target="_blank">
+                      <Link href={absoluteLink} target="_blank">
                         {text}
                       </Link>
                     );
