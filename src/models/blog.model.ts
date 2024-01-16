@@ -50,5 +50,6 @@ export namespace IBlog {
       | INotion.ContentTextProperties;
     format?: BlogCoverFormat | BlogImageFormat | BlogEmbedFormat;
     id: string;
+    version: number;
   }
 }

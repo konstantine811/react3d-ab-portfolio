@@ -6,7 +6,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@nextui-org/react";
-import { Box } from "lucide-react";
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 // models

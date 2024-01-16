@@ -125,10 +125,10 @@ export function handleNotionBlogItems(
         }
         return {
           title: properties.title[0][0],
-          id: id,
-          format: format,
-          created_time: created_time,
-          last_edited_time: last_edited_time,
+          id,
+          format,
+          created_time,
+          last_edited_time,
         };
       }
       return null;
@@ -143,14 +143,15 @@ export function handleNotionBlogArticle(
   if (!data) return null;
   return Object.entries(data)
     .map(([key, val]) => {
-      const { type, properties, id, format } = val.value;
+      const { type, properties, id, format, version } = val.value;
       const pageType = INotion.TypeContent.page;
       if (type !== pageType || (type === pageType && idTitle === key)) {
         return {
-          properties: properties,
-          type: type,
-          format: format,
-          id: id,
+          properties,
+          type,
+          format,
+          id,
+          version,
         };
       }
       return null;

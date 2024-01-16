@@ -20,8 +20,14 @@ export namespace INotion {
     header = "header",
     quote = "quote",
     bulleted_list = "bulleted_list",
+    numbered_list = "numbered_list",
     embed = "embed",
     divider = "divider",
+  }
+
+  export enum ParentTypeContent {
+    other = "other",
+    numbered_list = "numbered_list",
   }
 
   export interface ContentPageProperties {

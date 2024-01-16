@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Fragment, memo, useEffect, useRef, useState } from "react";
 import { motion, useScroll } from "framer-motion";
 // lib components
-import { Button, Divider, Image } from "@nextui-org/react";
+import { Button, Image } from "@nextui-org/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 // server request helpers
 import { QueryBlogArcticle, QueryBlogItems } from "@helpers/server-request";
@@ -14,19 +14,15 @@ import { IBlog } from "@models/blog.model";
 import { INotion } from "@models/server-response/notion.model";
 import { LangType } from "@models/lang.model";
 // components
-import NotionHeadTitle from "@components/NotionParse/NotionHeadTitle";
-import NotionCode from "@components/NotionParse/NotionCode";
-import NotionText from "@components/NotionParse/NotionText";
-import NotionImage from "@components/NotionParse/NotionImage";
 import Loader from "@components/Loader/Loader";
 import AsideBar from "@components/AsideBar/AsideBar";
+import BlogArticleitems from "@components/Blog/BlogArticleItems";
 // helpers
 import { getBlogPath } from "@helpers/blog";
 // storage
 import { currentLanguage } from "@store/slices/changeLanguageSlice";
 // config
 import { NOTION_URL } from "@configs/navigation";
-import NotionEmbed from "@components/NotionParse/NotionEmbed";
 
 function getPrevNextId(
   blogConfigItems: IBlog.MenuItems[],
@@ -95,6 +91,10 @@ const BlogArticlePage = memo(() => {
   const { id } = useParams();
   const navigate = useNavigate();
   let blogArticle: IBlog.BlogArticle[] = [];
+  let splitBlogArticle: {
+    type: INotion.ParentTypeContent;
+    children: IBlog.BlogArticle[];
+  }[] = [];
   let currentPageCoverUrl: string | null = null;
   const [t] = useTranslation("global");
 
@@ -127,10 +127,42 @@ const BlogArticlePage = memo(() => {
     const resBlogArticle = QueryBlogArcticle(id);
     if (resBlogArticle) {
       blogArticle = resBlogArticle;
-      blogArticle.forEach((i) => {
+      blogArticle.forEach((i, index) => {
         if (i.type === INotion.TypeContent.page && i.format) {
           const data = i.format as IBlog.BlogCoverFormat;
           currentPageCoverUrl = data.page_cover;
+        }
+        const lastTypeBlog = splitBlogArticle[splitBlogArticle.length - 1];
+        if (i.type === INotion.TypeContent.numbered_list) {
+          if (
+            lastTypeBlog &&
+            lastTypeBlog.type === INotion.ParentTypeContent.numbered_list
+          ) {
+            lastTypeBlog.children.push(i);
+          } else if (
+            !lastTypeBlog ||
+            lastTypeBlog.type !== INotion.ParentTypeContent.numbered_list
+          ) {
+            splitBlogArticle.push({
+              type: INotion.ParentTypeContent.numbered_list,
+              children: [i],
+            });
+          }
+        } else {
+          if (
+            lastTypeBlog &&
+            lastTypeBlog.type === INotion.ParentTypeContent.other
+          ) {
+            lastTypeBlog.children.push(i);
+          } else if (
+            !lastTypeBlog ||
+            lastTypeBlog.type !== INotion.ParentTypeContent.other
+          ) {
+            splitBlogArticle.push({
+              type: INotion.ParentTypeContent.other,
+              children: [i],
+            });
+          }
         }
       });
     }
@@ -159,76 +191,16 @@ const BlogArticlePage = memo(() => {
         ) : null}
         <div className="container max-w-screen-lg">
           <div style={{ minHeight: `calc(100vh - ${headerHeight}px)` }}>
-            {blogArticle && blogArticle.length ? (
-              blogArticle.map((item) => {
-                switch (item.type) {
-                  case INotion.TypeContent.page:
-                    return (
-                      <NotionHeadTitle
-                        key={item.id}
-                        data={item.properties as INotion.ContentPageProperties}
-                        format={item.format as IBlog.BlogCoverFormat}
-                        id={item.id}
-                      />
-                    );
-                  case INotion.TypeContent.code:
-                    return (
-                      <div key={item.id} className="mb-4">
-                        <NotionCode
-                          data={
-                            item.properties as INotion.ContentCodeProperties
-                          }
-                        />
-                      </div>
-                    );
-                  case INotion.TypeContent.text:
-                  case INotion.TypeContent.header:
-                  case INotion.TypeContent.sub_header:
-                  case INotion.TypeContent.sub_sub_header:
-                  case INotion.TypeContent.quote:
-                  case INotion.TypeContent.bulleted_list:
-                    return (
-                      <div key={item.id}>
-                        {item.properties ? (
-                          <NotionText
-                            data={
-                              item.properties as INotion.ContentTextProperties
-                            }
-                            type={item.type}
-                            id={item.id}
-                          />
-                        ) : null}
-                      </div>
-                    );
-                  case INotion.TypeContent.image:
-                    return (
-                      <div className="my-2" key={item.id}>
-                        <NotionImage
-                          data={
-                            item.properties as INotion.ContentImageProperties
-                          }
-                          format={item.format as IBlog.BlogImageFormat}
-                        />
-                      </div>
-                    );
-                  case INotion.TypeContent.embed:
-                    return (
-                      <div className="my-2" key={item.id}>
-                        <NotionEmbed
-                          format={item.format as IBlog.BlogEmbedFormat}
-                        />
-                      </div>
-                    );
-                  case INotion.TypeContent.divider:
-                    return (
-                      <Divider
-                        key={item.id}
-                        className="h-px mt-3 mb-20 w-full space-x-4"
-                        orientation="vertical"
-                      />
-                    );
-                  default:
-                    return null;
+            {splitBlogArticle && splitBlogArticle.length ? (
+              splitBlogArticle.map((item) => {
+                if (item.type === INotion.ParentTypeContent.numbered_list) {
+                  return (
+                    <ol className="list-decimal border-l-4 border-indigo-500 pl-7 ml-4">
+                      <BlogArticleitems data={item.children} />
+                    </ol>
+                  );
+                } else {
+                  return <BlogArticleitems data={item.children} />;
                 }
               })
             ) : (

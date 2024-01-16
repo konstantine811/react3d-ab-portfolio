@@ -8,7 +8,6 @@ import { headerHeightState } from "@store/slices/changeComponentSize";
 
 // components
 import SceneWrap from "@components/Three/SceneWrap/SceneWrap";
-import Model from "@components/Three/Model/Model";
 import Placeholder from "@components/Three/Placeholder/Placeholder";
 import Hamburger from "../../components/Three/Model/Hamburger";
 
