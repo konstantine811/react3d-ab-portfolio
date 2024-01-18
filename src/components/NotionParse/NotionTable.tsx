@@ -31,12 +31,7 @@ const NotaionTable = ({ data }: INotaionTableProps) => {
       tableColumnNames.length &&
       tableRow &&
       tableRow.length ? (
-        <Table
-          classNames={{
-            table: "min-h-[400px]",
-          }}
-          aria-label="Example table with client side sorting"
-        >
+        <Table aria-label="Example table with client side sorting">
           <TableHeader columns={tableColumnNames}>
             {(column) => (
               <TableColumn key={column.label}>
