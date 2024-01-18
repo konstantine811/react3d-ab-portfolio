@@ -9,11 +9,11 @@ import NotionText from "@components/NotionParse/NotionText";
 import NotionImage from "@components/NotionParse/NotionImage";
 import NotionEmbed from "@components/NotionParse/NotionEmbed";
 
-export interface IBlogArticleitemsProps {
+export interface IBlogArticleItemsProps {
   data: IBlog.BlogArticle[];
 }
 
-const BlogArticleitems = ({ data }: IBlogArticleitemsProps) => {
+const BlogArticleItems = ({ data }: IBlogArticleItemsProps) => {
   return (
     <>
       {data.map((item) => {
@@ -45,7 +45,9 @@ const BlogArticleitems = ({ data }: IBlogArticleitemsProps) => {
               <div key={item.id}>
                 {item.properties ? (
                   <NotionText
-                    data={item.properties as INotion.ContentTextProperties}
+                    data={
+                      (item.properties as INotion.ContentTextProperties).title
+                    }
                     type={item.type}
                     id={item.id}
                   />
@@ -57,7 +59,9 @@ const BlogArticleitems = ({ data }: IBlogArticleitemsProps) => {
               <li key={item.id}>
                 {item.properties ? (
                   <NotionText
-                    data={item.properties as INotion.ContentTextProperties}
+                    data={
+                      (item.properties as INotion.ContentTextProperties).title
+                    }
                     type={item.type}
                     id={item.id}
                   />
@@ -95,4 +99,4 @@ const BlogArticleitems = ({ data }: IBlogArticleitemsProps) => {
   );
 };
 
-export default BlogArticleitems;
+export default BlogArticleItems;

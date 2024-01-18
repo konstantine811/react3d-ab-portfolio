@@ -23,11 +23,14 @@ export namespace INotion {
     numbered_list = "numbered_list",
     embed = "embed",
     divider = "divider",
+    table = "table",
+    table_row = "table_row",
   }
 
   export enum ParentTypeContent {
     other = "other",
     numbered_list = "numbered_list",
+    table = "table",
   }
 
   export interface ContentPageProperties {
@@ -53,6 +56,10 @@ export namespace INotion {
 
   export interface ContentTextProperties {
     title: any[];
+  }
+
+  export interface ContentTableProperties {
+    [key: string]: any[];
   }
 
   export interface ContentValue {

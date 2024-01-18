@@ -16,13 +16,14 @@ import { LangType } from "@models/lang.model";
 // components
 import Loader from "@components/Loader/Loader";
 import AsideBar from "@components/AsideBar/AsideBar";
-import BlogArticleitems from "@components/Blog/BlogArticleItems";
+import BlogArticleItems from "@components/Blog/BlogArticleItems";
 // helpers
-import { getBlogPath } from "@helpers/blog";
+import { getBlogPath, splitBlogByConfig } from "@helpers/blog";
 // storage
 import { currentLanguage } from "@store/slices/changeLanguageSlice";
 // config
 import { NOTION_URL } from "@configs/navigation";
+import NotaionTable from "@components/NotionParse/NotionTable";
 
 function getPrevNextId(
   blogConfigItems: IBlog.MenuItems[],
@@ -91,10 +92,7 @@ const BlogArticlePage = memo(() => {
   const { id } = useParams();
   const navigate = useNavigate();
   let blogArticle: IBlog.BlogArticle[] = [];
-  let splitBlogArticle: {
-    type: INotion.ParentTypeContent;
-    children: IBlog.BlogArticle[];
-  }[] = [];
+  let splitBlogArticle: IBlog.SplitBlogArticle[] = [];
   let currentPageCoverUrl: string | null = null;
   const [t] = useTranslation("global");
 
@@ -127,43 +125,12 @@ const BlogArticlePage = memo(() => {
     const resBlogArticle = QueryBlogArcticle(id);
     if (resBlogArticle) {
       blogArticle = resBlogArticle;
-      blogArticle.forEach((i, index) => {
+      blogArticle.forEach((i) => {
         if (i.type === INotion.TypeContent.page && i.format) {
           const data = i.format as IBlog.BlogCoverFormat;
           currentPageCoverUrl = data.page_cover;
         }
-        const lastTypeBlog = splitBlogArticle[splitBlogArticle.length - 1];
-        if (i.type === INotion.TypeContent.numbered_list) {
-          if (
-            lastTypeBlog &&
-            lastTypeBlog.type === INotion.ParentTypeContent.numbered_list
-          ) {
-            lastTypeBlog.children.push(i);
-          } else if (
-            !lastTypeBlog ||
-            lastTypeBlog.type !== INotion.ParentTypeContent.numbered_list
-          ) {
-            splitBlogArticle.push({
-              type: INotion.ParentTypeContent.numbered_list,
-              children: [i],
-            });
-          }
-        } else {
-          if (
-            lastTypeBlog &&
-            lastTypeBlog.type === INotion.ParentTypeContent.other
-          ) {
-            lastTypeBlog.children.push(i);
-          } else if (
-            !lastTypeBlog ||
-            lastTypeBlog.type !== INotion.ParentTypeContent.other
-          ) {
-            splitBlogArticle.push({
-              type: INotion.ParentTypeContent.other,
-              children: [i],
-            });
-          }
-        }
+        splitBlogArticle = splitBlogByConfig(splitBlogArticle, i);
       });
     }
   }
@@ -192,15 +159,23 @@ const BlogArticlePage = memo(() => {
         <div className="container max-w-screen-lg">
           <div style={{ minHeight: `calc(100vh - ${headerHeight}px)` }}>
             {splitBlogArticle && splitBlogArticle.length ? (
-              splitBlogArticle.map((item) => {
-                if (item.type === INotion.ParentTypeContent.numbered_list) {
-                  return (
-                    <ol className="list-decimal border-l-4 border-indigo-500 pl-7 ml-4">
-                      <BlogArticleitems data={item.children} />
-                    </ol>
-                  );
-                } else {
-                  return <BlogArticleitems data={item.children} />;
+              splitBlogArticle.map((item, index) => {
+                switch (item.type) {
+                  case INotion.ParentTypeContent.numbered_list:
+                    return (
+                      <ol
+                        key={index}
+                        className="list-decimal border-l-4 border-indigo-500 pl-7 ml-4"
+                      >
+                        <BlogArticleItems data={item.children} />
+                      </ol>
+                    );
+                  case INotion.ParentTypeContent.table:
+                    return <NotaionTable key={index} data={item.children} />;
+                  default:
+                    return (
+                      <BlogArticleItems key={index} data={item.children} />
+                    );
                 }
               })
             ) : (

@@ -41,15 +41,36 @@ export namespace IBlog {
     display_source: string;
   }
 
+  export interface BlogTableFormat {
+    table_block_column_order: string[];
+  }
+
   export interface BlogArticle {
     type: INotion.TypeContent;
     properties:
       | INotion.ContentPageProperties
       | INotion.ContentImageProperties
       | INotion.ContentCodeProperties
-      | INotion.ContentTextProperties;
-    format?: BlogCoverFormat | BlogImageFormat | BlogEmbedFormat;
+      | INotion.ContentTextProperties
+      | INotion.ContentTableProperties;
+    format?:
+      | BlogCoverFormat
+      | BlogImageFormat
+      | BlogEmbedFormat
+      | BlogTableFormat;
     id: string;
     version: number;
+  }
+
+  export interface SplitBlogArticle {
+    type: INotion.ParentTypeContent;
+    children: IBlog.BlogArticle[];
+  }
+
+  export interface SplitCheckData {
+    splitBlogArticle: SplitBlogArticle[];
+    lastTypeBlog: SplitBlogArticle;
+    blogItem: BlogArticle;
+    typeContent: INotion.ParentTypeContent;
   }
 }

@@ -5,9 +5,11 @@ import { Chip, Link } from "@nextui-org/react";
 import { FC, ElementType } from "react";
 
 export interface INotionTextProperties {
-  data: INotion.ContentTextProperties;
+  data: any[];
   type: INotion.TypeContent;
   id: string;
+  as?: ElementType;
+  className?: string;
 }
 
 export type INotionClassProps = { [key: string]: any };
@@ -34,7 +36,13 @@ export interface ITagClass {
   className?: string;
 }
 
-const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
+const NotionText: FC<INotionTextProperties> = ({
+  data,
+  type,
+  id,
+  className = "text-lg mt-6",
+  as = "div",
+}) => {
   const currentTagClass = getCurrentTagClass();
   function getCurrentTagClass(): ITagClass {
     switch (type) {
@@ -66,8 +74,8 @@ const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
         };
       default:
         return {
-          as: "div",
-          className: "text-lg mt-6",
+          as,
+          className,
         };
     }
   }
@@ -78,7 +86,7 @@ const NotionText: FC<INotionTextProperties> = ({ data, type, id }) => {
         className={currentTagClass.className}
         id={removeStringDefise(id)}
       >
-        {data?.title?.map((i, index) => {
+        {data?.map((i, index) => {
           const [text, styleArr] = i;
           let objClasses: string[] = [];
           let link = "#";

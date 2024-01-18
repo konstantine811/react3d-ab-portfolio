@@ -28,7 +28,7 @@ const NotionHeadTitle: FC<INotionHeadTitleProperties> = ({
         duration={0.91}
         letterStaggerTime={0.09}
       >
-        {data.title[0][0].toString()}
+        {data.title.map((i) => i[0]).join(" ")}
       </TextSplitAnimation>
     </div>
   );
