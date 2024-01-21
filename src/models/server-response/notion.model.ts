@@ -22,6 +22,7 @@ export namespace INotion {
     bulleted_list = "bulleted_list",
     numbered_list = "numbered_list",
     embed = "embed",
+    video = "video",
     divider = "divider",
     table = "table",
     table_row = "table_row",

@@ -78,6 +78,7 @@ const BlogArticleItems = ({ data }: IBlogArticleItemsProps) => {
               </div>
             );
           case INotion.TypeContent.embed:
+          case INotion.TypeContent.video:
             return (
               <div className="my-2" key={item.id}>
                 <NotionEmbed format={item.format as IBlog.BlogEmbedFormat} />

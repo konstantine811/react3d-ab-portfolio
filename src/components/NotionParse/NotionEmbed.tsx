@@ -10,7 +10,7 @@ const NotionEmbed = ({ format }: INotionEmbedProperties) => {
       key={format.display_source}
       title={format.display_source}
       className="w-full"
-      height={format.block_height}
+      height={format.block_height ? format.block_height : 500}
       src={format.display_source}
     />
   );
