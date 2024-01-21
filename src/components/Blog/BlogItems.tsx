@@ -87,7 +87,7 @@ const BlogItems: FC<IBlogItemsProps> = ({ blogId }) => {
                 </div>
                 <img
                   alt="Card background"
-                  className="z-0 w-full h-full object-cover absolute"
+                  className="z-0 w-full h-full object-cover absolute blur-sm"
                   src={blogItem.format?.page_cover}
                 />
               </Card>
