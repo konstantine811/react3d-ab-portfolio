@@ -26,6 +26,7 @@ export namespace INotion {
     divider = "divider",
     table = "table",
     table_row = "table_row",
+    bookmark = "bookmark",
   }
 
   export enum ParentTypeContent {
@@ -63,6 +64,12 @@ export namespace INotion {
     [key: string]: any[];
   }
 
+  export interface ContentBookmarkProperties {
+    description: string[];
+    link: string[];
+    title: string[];
+  }
+
   export interface ContentValue {
     alive: boolean;
     content: string[];
@@ -81,7 +88,8 @@ export namespace INotion {
       | ContentImageProperties
       | ContentCodeProperties
       | ContentTextProperties
-      | ContentEmbedProperties;
+      | ContentEmbedProperties
+      | ContentBookmarkProperties;
     space_id: string;
     type: TypeContent;
     version: number;

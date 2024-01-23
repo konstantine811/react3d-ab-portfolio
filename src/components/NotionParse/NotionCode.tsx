@@ -25,7 +25,7 @@ const NotionCode: FC<INotionCodeProperties> = ({ data }) => {
       ) : null}
       <SyntaxHighlighter
         aria-hidden="true"
-        language={data.language ? data.language[0][0].toLowerCase() : "html"}
+        language={"javascript"}
         className="rounded-lg shadow-lg"
         showLineNumbers
         showInlineLineNumbers

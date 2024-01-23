@@ -8,6 +8,7 @@ import NotionCode from "@components/NotionParse/NotionCode";
 import NotionText from "@components/NotionParse/NotionText";
 import NotionImage from "@components/NotionParse/NotionImage";
 import NotionEmbed from "@components/NotionParse/NotionEmbed";
+import NotionBookmark from "@components/NotionParse/NotionBookmark";
 
 export interface IBlogArticleItemsProps {
   data: IBlog.BlogArticle[];
@@ -82,6 +83,15 @@ const BlogArticleItems = ({ data }: IBlogArticleItemsProps) => {
             return (
               <div className="my-2" key={item.id}>
                 <NotionEmbed format={item.format as IBlog.BlogEmbedFormat} />
+              </div>
+            );
+          case INotion.TypeContent.bookmark:
+            return (
+              <div className="my-2" key={item.id}>
+                <NotionBookmark
+                  data={item.properties as INotion.ContentBookmarkProperties}
+                  format={item.format as IBlog.BlogBookmarkFormat}
+                />
               </div>
             );
           case INotion.TypeContent.divider:

@@ -45,6 +45,11 @@ export namespace IBlog {
     table_block_column_order: string[];
   }
 
+  export interface BlogBookmarkFormat {
+    bookmark_cover: string;
+    bookmark_icon: string;
+  }
+
   export interface BlogArticle {
     type: INotion.TypeContent;
     properties:
@@ -52,12 +57,14 @@ export namespace IBlog {
       | INotion.ContentImageProperties
       | INotion.ContentCodeProperties
       | INotion.ContentTextProperties
-      | INotion.ContentTableProperties;
+      | INotion.ContentTableProperties
+      | INotion.ContentBookmarkProperties;
     format?:
       | BlogCoverFormat
       | BlogImageFormat
       | BlogEmbedFormat
-      | BlogTableFormat;
+      | BlogTableFormat
+      | BlogBookmarkFormat;
     id: string;
     version: number;
   }
