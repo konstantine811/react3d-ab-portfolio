@@ -49,7 +49,7 @@ const NotionText: FC<INotionTextProperties> = ({
       case INotion.TypeContent.header:
         return {
           as: "h2",
-          className: "text-4xl bold mt-6",
+          className: "text-4xl bold mt-32",
         };
       case INotion.TypeContent.sub_header:
         return {

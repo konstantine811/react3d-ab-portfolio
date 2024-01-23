@@ -17,7 +17,7 @@ const NotionHeadTitle: FC<INotionHeadTitleProperties> = ({
   format,
 }) => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center mt-6 mb-10">
       {format?.page_icon ? (
         <div className="mr-2 text-6xl"> {format.page_icon}</div>
       ) : null}
