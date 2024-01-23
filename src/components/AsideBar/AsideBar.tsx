@@ -99,7 +99,7 @@ const AsideBar: FC<AsideBaProps> = ({ blogConfigItems, blogId, id }) => {
                               }}
                               key={itemC.id}
                               as={Link}
-                              className="w-full justify-start mb-1"
+                              className="w-full justify-start mb-1 !whitespace-break-spaces h-auto py-3"
                               href={getBlogPath(itemC.id)}
                               color={id === itemC.id ? "primary" : "default"}
                               variant="flat"
@@ -122,7 +122,7 @@ const AsideBar: FC<AsideBaProps> = ({ blogConfigItems, blogId, id }) => {
         </div>
         <Button
           onClick={() => setIsOpen((isOpen) => !isOpen)}
-          className="mt-2 absolute left-full top-0"
+          className="mt-2 absolute left-full top-0 truncate"
           isIconOnly
           variant="flat"
           aria-label="Menu"

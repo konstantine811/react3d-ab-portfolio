@@ -140,9 +140,12 @@ const NotionText: FC<INotionTextProperties> = ({
                     return (
                       <a href={link}>
                         <Chip
-                          className="text-lg p-5 transition hover:bg-foreground hover:text-background"
                           color="warning"
                           variant="dot"
+                          classNames={{
+                            base: "h-auto  p-2 transition hover:bg-foreground hover:text-background",
+                            content: "break-words",
+                          }}
                         >
                           {text}
                         </Chip>
