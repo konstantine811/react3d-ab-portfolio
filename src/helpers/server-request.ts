@@ -124,7 +124,7 @@ export function handleNotionBlogItems(
           return null;
         }
         return {
-          title: properties.title.map((i) => i[0]).join(" "),
+          title: properties.title?.map((i) => i[0]).join(" "),
           id,
           format,
           created_time,

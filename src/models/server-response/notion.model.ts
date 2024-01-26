@@ -53,7 +53,7 @@ export namespace INotion {
 
   export interface ContentEmbedProperties {
     source: string[];
-    title: string[];
+    title?: string[];
   }
 
   export interface ContentTextProperties {
