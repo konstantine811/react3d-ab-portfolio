@@ -35,7 +35,7 @@ const NotaionTable = ({ data }: INotaionTableProps) => {
           <TableHeader columns={tableColumnNames}>
             {(column) => (
               <TableColumn key={column.label}>
-                {tableHeaderColumn[column.label].join(" ")}
+                {tableHeaderColumn[column.label]?.join(" ")}
               </TableColumn>
             )}
           </TableHeader>
