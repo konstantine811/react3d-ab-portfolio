@@ -26,12 +26,12 @@ const NotaionTable = ({ data }: INotaionTableProps) => {
     ?.properties as INotion.ContentTableProperties;
   tableRow.shift();
   return (
-    <>
+    <div className="flex justify-center">
       {tableColumnNames &&
       tableColumnNames.length &&
       tableRow &&
       tableRow.length ? (
-        <Table aria-label="Example table with client side sorting">
+        <Table aria-label="table" className="w-fit">
           <TableHeader columns={tableColumnNames}>
             {(column) => (
               <TableColumn key={column.label}>
@@ -63,7 +63,7 @@ const NotaionTable = ({ data }: INotaionTableProps) => {
           </TableBody>
         </Table>
       ) : null}
-    </>
+    </div>
   );
 };
 
